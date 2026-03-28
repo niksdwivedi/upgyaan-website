@@ -1,0 +1,105 @@
+---
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { getAvatarUrl } from '../../utils/avatar';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allAuthors = await getCollection('authors');
+
+const authorData = allAuthors.find(a => a.data.slug === post.data.author)?.data;
+if (!authorData) return Astro.redirect('/blog');
+
+function getWordCount(body: string) {
+  return body.split(/\s+/).filter(Boolean).length;
+}
+
+const wordCount = getWordCount(post.body ?? '');
+
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id && p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3)
+  .map(p => {
+    const a = allAuthors.find(au => au.data.slug === p.data.author)?.data;
+    return {
+      title: p.data.title,
+      slug: p.id,
+      description: p.data.description,
+      publishDate: p.data.publishDate,
+      author: {
+        name: a?.name ?? 'UpGyaan',
+        slug: a?.slug ?? '',
+        avatar: a?.avatar,
+        twitter: a?.twitter,
+        linkedin: a?.linkedin,
+      },
+      tags: p.data.tags,
+      coverImage: p.data.coverImage,
+      wordCount: getWordCount(p.body ?? ''),
+    };
+  });
+
+// BlogPosting schema for rich search results
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://upgyaan.com';
+const authorAvatar = getAvatarUrl({ name: authorData.name, avatar: authorData.avatar, twitter: authorData.twitter, linkedin: authorData.linkedin });
+
+const blogPostingSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  dateModified: post.data.publishDate.toISOString(),
+  url: `${siteUrl}/blog/${post.id}`,
+  image: post.data.coverImage ? `${siteUrl}${post.data.coverImage}` : `${siteUrl}/og-default.svg`,
+  author: {
+    '@type': 'Person',
+    name: authorData.name,
+    url: `${siteUrl}/blog/author/${authorData.slug}`,
+    image: authorAvatar,
+    sameAs: [authorData.linkedin, authorData.twitter].filter(Boolean),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'UpGyaan',
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/logo.png` },
+  },
+  keywords: post.data.tags.join(', '),
+  wordCount: wordCount,
+});
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishDate={post.data.publishDate}
+  author={{
+    name: authorData.name,
+    slug: authorData.slug,
+    title: authorData.title,
+    bio: authorData.bio,
+    avatar: authorData.avatar,
+    linkedin: authorData.linkedin,
+    twitter: authorData.twitter,
+    youtube: authorData.youtube,
+    instagram: authorData.instagram,
+  }}
+  tags={post.data.tags}
+  coverImage={post.data.coverImage}
+  wordCount={wordCount}
+  relatedPosts={relatedPosts}
+  schemaJson={blogPostingSchema}
+>
+  <Content />
+</BlogPostLayout>

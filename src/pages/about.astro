@@ -1,0 +1,687 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="About"
+  description="Why UpGyaan exists — the problem, the vision, and the community built to solve the career growth gap in tech."
+>
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="about-hero" aria-labelledby="about-heading">
+    <div class="container">
+      <p class="section-kicker">Our story</p>
+      <h1 id="about-heading">Why UpGyaan exists</h1>
+      <p class="page-intro">
+        The career growth infrastructure that tech professionals actually need has never been built properly. UpGyaan is our attempt to change that.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── The problem: double gap ────────────────────────── -->
+  <section class="content-section reveal" aria-labelledby="problem-heading">
+    <div class="container two-col">
+      <div class="col-text">
+        <p class="section-kicker">The problem</p>
+        <h2 id="problem-heading">The double mentorship gap</h2>
+        <p>
+          Tech professionals in established organisations face a paradox. The mentorship available to startup founders — accelerators, high-profile networks, investor conversations — is inspiring and almost entirely <strong>irrelevant</strong> to a corporate tech career.
+        </p>
+        <p>
+          At the same time, corporate mentorship is structurally compromised. Your organisation's programme is designed to serve <em>retention</em> first. When your mentor's incentives and yours diverge, the guidance reflects that misalignment.
+        </p>
+        <p>
+          The result: talented professionals who are either under-mentored, mis-mentored, or both — doing excellent work and going nowhere.
+        </p>
+      </div>
+      <div class="col-visual">
+        <div class="problem-cards">
+          <div class="problem-card problem-card--a">
+            <span class="problem-card-icon" aria-hidden="true">🚀</span>
+            <p class="problem-card-label">Startup mentorship</p>
+            <p class="problem-card-note">Inspiring but irrelevant to corporate tech realities</p>
+          </div>
+          <div class="problem-vs" aria-hidden="true">vs</div>
+          <div class="problem-card problem-card--b">
+            <span class="problem-card-icon" aria-hidden="true">🏢</span>
+            <p class="problem-card-label">Corporate mentorship</p>
+            <p class="problem-card-note">Designed to retain you, not to advance you</p>
+          </div>
+        </div>
+        <div class="problem-result">
+          <span aria-hidden="true">⚡</span>
+          <p>You get <strong>neither</strong> — and your career drifts instead of advances.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Visibility problem ─────────────────────────────── -->
+  <section class="content-section bg-surface reveal" aria-labelledby="visibility-heading">
+    <div class="container two-col two-col--reverse">
+      <div class="col-text">
+        <p class="section-kicker">The visibility problem</p>
+        <h2 id="visibility-heading">Great work that nobody sees doesn't advance careers</h2>
+        <p>
+          LinkedIn has become algorithmically optimised for content that <em>performs</em>, not content that <em>matters</em>. The result is a noise layer so thick that genuine expertise is almost impossible to distinguish from polished self-promotion.
+        </p>
+        <p>
+          The professionals who advance fastest are often not the most skilled — they are the most <strong>strategically visible</strong>, to the right people, in the right contexts. The infrastructure for building that kind of visibility doesn't exist. Until now.
+        </p>
+      </div>
+      <div class="col-visual">
+        <div class="visibility-stat-grid">
+          <div class="vis-stat">
+            <p class="vis-stat-num">73%</p>
+            <p class="vis-stat-label">of promotions, research suggests, go to candidates with strong internal visibility — not just strong performance</p>
+          </div>
+          <div class="vis-stat">
+            <p class="vis-stat-num">60%</p>
+            <p class="vis-stat-label">of tech professionals report their work is invisible beyond their immediate team</p>
+          </div>
+          <div class="vis-stat vis-stat--full">
+            <p class="vis-stat-num">1 in 3</p>
+            <p class="vis-stat-label">senior tech leaders credit a sponsor — not a mentor — as the catalyst for their biggest career leap</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The answer ─────────────────────────────────────── -->
+  <section class="content-section reveal" aria-labelledby="answer-heading">
+    <div class="container content-narrow">
+      <p class="section-kicker">The answer</p>
+      <h2 id="answer-heading">Structured, outcome-driven, community-powered</h2>
+      <p>
+        UpGyaan is not a content platform. It is not a social network. It is a career growth <strong>ecosystem</strong> — built around the specific transitions and challenges that tech professionals face at every stage of their career.
+      </p>
+      <p>
+        The community is the mechanism, not the product. The product is career growth. The community is how we make it possible at scale, with humanity, and with the kind of peer accountability that individual tools and platforms cannot provide.
+      </p>
+      <div class="answer-principles">
+        <div class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5L2 7.8l5.6-.8L10 2z" stroke="#0D7377" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Agenda-free</h3>
+            <p>Every mentor relationship is designed to serve the mentee, not the organisation.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#0D7377" stroke-width="1.5"/><path d="M10 6v4l3 3" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Outcome-focused</h3>
+            <p>Growth is measured in career progress, not engagement metrics or post counts.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3C6.134 3 3 6.134 3 10s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7z" stroke="#0D7377" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Community-compounding</h3>
+            <p>Every member who gives generously makes the ecosystem more valuable for everyone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The 6 pillars ──────────────────────────────────── -->
+  <section class="content-section bg-surface reveal" aria-labelledby="pillars-heading">
+    <div class="container">
+      <p class="section-kicker">The six pillars</p>
+      <h2 id="pillars-heading" class="section-heading">How UpGyaan works</h2>
+
+      <div class="pillars-grid">
+        {[
+          { icon: '🎓', label: 'Academy', desc: 'Curated learning built specifically for tech careers — the skills that actually determine career trajectories: communication upward, navigating organisations, building influence, and making career transitions.' },
+          { icon: '🤝', label: 'Mentor Circle', desc: 'Mentorship from people who have navigated the specific transitions you are approaching — senior enterprise leaders, startup founders, and researchers from leading institutions. Every relationship is agenda-free by design.' },
+          { icon: '🤖', label: 'AI Insights', desc: 'Personalised career intelligence that tells you where to focus. Based on your career stage, goals, and patterns from thousands of career trajectories — specific, contextual, actionable nudges.' },
+          { icon: '🌐', label: 'Community Hub', desc: 'Not a feed, not a forum. Groups organised by career stage, function, geography, and interest. Regular structured conversations, peer accountability circles, and online and in-person events.' },
+          { icon: '👁', label: 'Visibility Engine', desc: 'Infrastructure for building showcasable outcomes — blogs, open-source contributions, white papers, projects — amplified across platforms so your expertise reaches the people who matter, not just your immediate team.' },
+          { icon: '🚀', label: 'Career Launchpad', desc: 'Where skills and visibility convert into real opportunities. Job connections, project collaborations, speaking opportunities, and advisory roles — surfaced through community relationships.' },
+        ].map(p => (
+          <div class="pillar-item">
+            <div class="pillar-header">
+              <span class="pillar-emoji" aria-hidden="true">{p.icon}</span>
+              <h3 class="pillar-name">{p.label}</h3>
+            </div>
+            <p class="pillar-desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Who it's for ────────────────────────────────────── -->
+  <section class="content-section reveal" aria-labelledby="whofor-heading">
+    <div class="container">
+      <p class="section-kicker">Who it's for</p>
+      <h2 id="whofor-heading" class="section-heading">At every stage of the journey</h2>
+      <div class="whofor-grid">
+        {[
+          { icon: '🌱', stage: 'Early career', years: '0–3 years', desc: 'You are building foundations. The choices you make in the first three years — skills, relationships, visibility — compound in ways that are almost impossible to reverse. UpGyaan gives you the mentorship and frameworks to make the right calls early.' },
+          { icon: '📈', stage: 'Mid-career', years: '3–10 years', desc: 'You are navigating transitions — IC to lead, technical to strategic, one organisation to another. The skills that got you here are not the skills that will get you to the next level. UpGyaan gives you peers and mentors who have made these moves.' },
+          { icon: '🏆', stage: 'Senior leader', years: '10+ years', desc: 'You have built expertise over a decade. UpGyaan is a place to give back, stay connected to emerging trends, and build a community legacy that extends your professional impact beyond your current role.' },
+        ].map(w => (
+          <div class="whofor-card">
+            <div class="whofor-icon" aria-hidden="true">{w.icon}</div>
+            <div class="whofor-stage-badge">{w.years}</div>
+            <h3>{w.stage}</h3>
+            <p>{w.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Roadmap slider ─────────────────────────────────── -->
+  <section class="roadmap-section bg-surface reveal" aria-labelledby="roadmap-heading">
+    <div class="container">
+      <p class="section-kicker">Our roadmap</p>
+      <h2 id="roadmap-heading" class="section-heading">Building this one phase at a time</h2>
+      <p class="roadmap-intro">We are being honest about where we are. Click each phase to learn more.</p>
+
+      <div class="roadmap-slider" role="tablist" aria-label="UpGyaan phases">
+        <!-- Phase tabs -->
+        <div class="roadmap-tabs">
+          {[
+            { num: '1', label: 'Foundation', active: true },
+            { num: '2', label: 'Community', active: false },
+            { num: '3', label: 'Technology', active: false },
+            { num: '4', label: 'Expansion', active: false },
+          ].map((phase, i) => (
+            <button
+              class={`roadmap-tab ${phase.active ? 'roadmap-tab--active' : ''}`}
+              role="tab"
+              aria-selected={phase.active ? 'true' : 'false'}
+              aria-controls={`roadmap-panel-${i + 1}`}
+              id={`roadmap-tab-${i + 1}`}
+              data-phase={i + 1}
+              type="button"
+            >
+              <span class="tab-num" aria-hidden="true">{phase.num}</span>
+              <span class="tab-label">{phase.label}</span>
+            </button>
+          ))}
+        </div>
+
+        <!-- Phase panels -->
+        <div class="roadmap-panels">
+          <div class="roadmap-panel" id="roadmap-panel-1" role="tabpanel" aria-labelledby="roadmap-tab-1">
+            <div class="panel-status panel-status--current">
+              <span class="status-dot" aria-hidden="true"></span>
+              Currently in progress
+            </div>
+            <h3>Phase 1 — Foundation</h3>
+            <p>Building the core community, publishing the UpGyaan blog, and establishing the knowledge base. This is the phase you are in right now. The people who join earliest help shape everything that comes next — the culture, the norms, the direction.</p>
+            <ul class="panel-milestones">
+              <li><span aria-hidden="true">✓</span> Website live</li>
+              <li><span aria-hidden="true">✓</span> Blog launched</li>
+              <li><span aria-hidden="true">◎</span> Early community registrations open</li>
+              <li><span aria-hidden="true">◎</span> First newsletter edition</li>
+            </ul>
+          </div>
+
+          <div class="roadmap-panel" id="roadmap-panel-2" role="tabpanel" aria-labelledby="roadmap-tab-2" hidden aria-hidden="true">
+            <div class="panel-status panel-status--upcoming">Upcoming</div>
+            <h3>Phase 2 — Community</h3>
+            <p>Launching the Community Hub with structured groups, the first Mentor Circle cohorts, and offline events in key cities. This is where the network begins to compound and the relationships that define careers start forming.</p>
+            <ul class="panel-milestones">
+              <li><span aria-hidden="true">○</span> Community Hub launch</li>
+              <li><span aria-hidden="true">○</span> First Mentor Circle cohort</li>
+              <li><span aria-hidden="true">○</span> City Chapters in 3 cities</li>
+              <li><span aria-hidden="true">○</span> First in-person events</li>
+            </ul>
+          </div>
+
+          <div class="roadmap-panel" id="roadmap-panel-3" role="tabpanel" aria-labelledby="roadmap-tab-3" hidden aria-hidden="true">
+            <div class="panel-status panel-status--upcoming">Upcoming</div>
+            <h3>Phase 3 — Technology</h3>
+            <p>Launching the Academy, the AI Insights layer, and the Visibility Engine. The technology is built on community signal — which is why the community comes first. Without the people, the technology is just features.</p>
+            <ul class="panel-milestones">
+              <li><span aria-hidden="true">○</span> Academy launch</li>
+              <li><span aria-hidden="true">○</span> AI Insights beta</li>
+              <li><span aria-hidden="true">○</span> Visibility Engine launch</li>
+              <li><span aria-hidden="true">○</span> Mobile app</li>
+            </ul>
+          </div>
+
+          <div class="roadmap-panel" id="roadmap-panel-4" role="tabpanel" aria-labelledby="roadmap-tab-4" hidden aria-hidden="true">
+            <div class="panel-status panel-status--upcoming">Future</div>
+            <h3>Phase 4 — Expansion</h3>
+            <p>Taking UpGyaan global — more cities, more languages, more career contexts. The Career Launchpad goes live. The ecosystem begins to operate as a whole, with every pillar reinforcing every other.</p>
+            <ul class="panel-milestones">
+              <li><span aria-hidden="true">○</span> Career Launchpad launch</li>
+              <li><span aria-hidden="true">○</span> Global city chapters</li>
+              <li><span aria-hidden="true">○</span> Multi-language support</li>
+              <li><span aria-hidden="true">○</span> Annual UpGyaan Summit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why we built this ──────────────────────────────── -->
+  <section class="content-section reveal" aria-labelledby="origin-heading">
+    <div class="container content-narrow">
+      <p class="section-kicker">Why we built this</p>
+      <h2 id="origin-heading" class="section-heading">Built by practitioners, for practitioners</h2>
+      <p>
+        UpGyaan was built by practitioners — senior technology leaders who have spent careers inside large enterprise organisations across banking, fintech, insurance, and infrastructure; startup founders who have navigated the extremes of building from zero; and researchers from some of the world's leading academic institutions. Different backgrounds, one shared frustration.
+      </p>
+      <p>
+        That frustration was not about a lack of ambition or talent in the people around us. It was structural: the mentorship available was designed to serve the organisation, not the individual. The visibility infrastructure didn't exist. The peer networks were shallow. The career growth that did happen was mostly accidental — a result of luck, proximity, or a single relationship that happened to form at the right time.
+      </p>
+      <p>
+        We are not a startup with a pitch deck. We are a community with a conviction: that the right people, with the right support structure, in the right environment, grow faster and more intentionally than anyone doing it alone. Every decision we make — about how we launch, who we admit, how we structure mentorship, how we build technology — is shaped by one question: does this make career growth more intentional for the people inside this community?
+      </p>
+      <div class="origin-cta">
+        <a href="/join" class="btn-primary">Be part of what we're building</a>
+        <a href="/for-mentors" class="text-link">
+          Want to mentor?
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Email CTA ───────────────────────────────────────── -->
+  <section class="content-section bg-surface" aria-labelledby="about-cta-heading">
+    <div class="container content-narrow">
+      <p class="section-kicker">Be early</p>
+      <h2 id="about-cta-heading" class="section-heading">Be part of what we're building</h2>
+      <p class="cta-sub">Register your interest and we'll keep you informed as we grow.</p>
+      <EmailCapture id="about-cta" context="about" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────── */
+  .about-hero {
+    padding: 5rem 0 4rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700; margin: 0.5rem 0 1rem;
+  }
+
+  .page-intro {
+    font-size: 1.125rem; color: var(--color-text);
+    line-height: 1.7; max-width: 640px; margin: 0;
+  }
+
+  /* ── Two-col layout ─────────────────────────────────────── */
+  .two-col {
+    display: grid; gap: 3rem; align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .two-col { grid-template-columns: 1fr 1fr; }
+    .two-col--reverse .col-text { order: 2; }
+    .two-col--reverse .col-visual { order: 1; }
+  }
+
+  /* ── Content sections ───────────────────────────────────── */
+  .content-section { padding: 5rem 0; border-bottom: 1px solid var(--color-border); }
+  .content-section:last-child { border-bottom: none; }
+  .bg-surface { background: var(--color-surface); }
+  .content-narrow { max-width: 760px; }
+
+  /* ── Shared ─────────────────────────────────────────────── */
+  .section-kicker {
+    font-size: 0.8125rem; font-weight: 600;
+    color: var(--color-teal); text-transform: uppercase;
+    letter-spacing: 0.08em; margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.625rem, 3vw, 2.125rem);
+    font-weight: 700; color: var(--color-black); margin: 0; line-height: 1.2;
+  }
+
+  .col-text h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700; color: var(--color-black); margin: 0.5rem 0 1.25rem;
+  }
+
+  .col-text p {
+    font-size: 0.9375rem; color: var(--color-text);
+    line-height: 1.75; margin: 0 0 1rem;
+  }
+
+  /* ── Problem cards ──────────────────────────────────────── */
+  .problem-cards {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .problem-card {
+    flex: 1; min-width: 130px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px; padding: 1.25rem;
+    text-align: center;
+  }
+
+  .problem-card-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+  .problem-card-label {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 0.875rem; color: var(--color-black); margin: 0 0 0.35rem;
+  }
+
+  .problem-card-note {
+    font-size: 0.8125rem; color: var(--color-muted);
+    margin: 0; line-height: 1.5;
+  }
+
+  .problem-vs {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 0.875rem; color: var(--color-muted);
+    flex-shrink: 0;
+  }
+
+  .problem-result {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    margin-top: 1rem; padding: 1rem 1.25rem;
+    background: #fff8f0; border: 1px solid #fdd;
+    border-radius: 8px;
+  }
+
+  .problem-result span { font-size: 1.25rem; flex-shrink: 0; }
+
+  .problem-result p { font-size: 0.875rem; color: var(--color-text); margin: 0; line-height: 1.5; }
+
+  /* ── Visibility stats ───────────────────────────────────── */
+  .visibility-stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .vis-stat {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px; padding: 1.25rem;
+  }
+
+  .vis-stat--full { grid-column: 1 / -1; }
+
+  .vis-stat-num {
+    font-family: var(--font-heading); font-size: 2rem; font-weight: 700;
+    color: var(--color-teal); margin: 0 0 0.35rem; line-height: 1;
+  }
+
+  .vis-stat-label {
+    font-size: 0.8125rem; color: var(--color-text);
+    margin: 0; line-height: 1.5;
+  }
+
+  /* ── Answer principles ──────────────────────────────────── */
+  .answer-principles {
+    display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem;
+  }
+
+  .principle {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+  }
+
+  .principle-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    margin-top: 0.1rem;
+  }
+
+  .principle h3 {
+    font-size: 0.9375rem; font-weight: 700; color: var(--color-black); margin: 0 0 0.25rem;
+  }
+
+  .principle p { font-size: 0.875rem; color: var(--color-text); margin: 0; line-height: 1.6; }
+
+  /* ── Pillars grid ───────────────────────────────────────── */
+  .pillars-grid {
+    display: grid; gap: 1.5rem; margin-top: 2.5rem;
+  }
+
+  @media (min-width: 640px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .pillars-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .pillar-item {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+
+  .pillar-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+
+  .pillar-emoji { font-size: 1.5rem; line-height: 1; }
+
+  .pillar-name {
+    font-family: var(--font-heading); font-size: 1rem;
+    font-weight: 700; color: var(--color-black); margin: 0;
+  }
+
+  .pillar-desc { font-size: 0.875rem; color: var(--color-text); line-height: 1.65; margin: 0; }
+
+  /* ── Who it's for ───────────────────────────────────────── */
+  .whofor-grid {
+    display: grid; gap: 1.5rem; margin-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) { .whofor-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .whofor-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px; padding: 2rem;
+  }
+
+  .whofor-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+
+  .whofor-stage-badge {
+    display: inline-block; padding: 0.2rem 0.6rem;
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+    color: var(--color-muted); margin-bottom: 0.75rem;
+  }
+
+  .whofor-card h3 {
+    font-size: 1.0625rem; font-weight: 700; color: var(--color-black); margin: 0 0 0.75rem;
+  }
+
+  .whofor-card p { font-size: 0.9rem; color: var(--color-text); line-height: 1.7; margin: 0; }
+
+  /* ── Roadmap slider ─────────────────────────────────────── */
+  .roadmap-section { padding: 5rem 0; border-bottom: 1px solid var(--color-border); }
+
+  .roadmap-intro { font-size: 1rem; color: var(--color-text); margin: 0.5rem 0 2.5rem; }
+
+  .roadmap-slider {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 14px; overflow: hidden;
+  }
+
+  .roadmap-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .roadmap-tabs::-webkit-scrollbar { display: none; }
+
+  .roadmap-tab {
+    flex: 1; min-width: 120px;
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    padding: 1.25rem 1rem;
+    background: none; border: none; border-bottom: 3px solid transparent;
+    cursor: pointer; font-family: var(--font-body);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .roadmap-tab:hover { background: var(--color-surface); }
+
+  .roadmap-tab--active {
+    border-bottom-color: var(--color-amber);
+    background: var(--color-surface);
+  }
+
+  .tab-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 0.875rem; color: var(--color-muted);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .roadmap-tab--active .tab-num {
+    background: var(--color-amber);
+    border-color: var(--color-amber);
+    color: var(--color-black);
+  }
+
+  .tab-label {
+    font-size: 0.8125rem; font-weight: 600;
+    color: var(--color-muted);
+    transition: color 0.15s ease;
+  }
+
+  .roadmap-tab--active .tab-label { color: var(--color-black); }
+
+  .roadmap-panels { padding: 2.5rem; }
+
+  @media (max-width: 639px) {
+    .roadmap-panels { padding: 1.25rem; }
+  }
+
+  .roadmap-panel[hidden] { display: none; }
+
+  .panel-status {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  .panel-status--current {
+    background: #f0fdf4; color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  .panel-status--upcoming {
+    background: var(--color-surface); color: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  .status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #16a34a;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .roadmap-panel h3 {
+    font-size: 1.375rem; font-weight: 700; color: var(--color-black); margin: 0 0 0.75rem;
+  }
+
+  .roadmap-panel p {
+    font-size: 0.9375rem; color: var(--color-text); line-height: 1.75; margin: 0 0 1.5rem;
+  }
+
+  .panel-milestones {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+
+  .panel-milestones li {
+    display: flex; align-items: center; gap: 0.625rem;
+    font-size: 0.9rem; color: var(--color-text);
+  }
+
+  .panel-milestones li span {
+    width: 20px; font-size: 0.9rem; color: var(--color-teal);
+    flex-shrink: 0; text-align: center;
+  }
+
+  /* ── Text link ──────────────────────────────────────────── */
+  .text-link {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.9375rem; font-weight: 600; color: var(--color-teal);
+    text-decoration: none; border-bottom: 1.5px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .text-link:hover { border-bottom-color: var(--color-teal); color: var(--color-teal); text-decoration: none; }
+
+  /* ── Why we built this ──────────────────────────────────── */
+  .origin-cta {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 1rem; margin-top: 2rem;
+  }
+
+  .cta-sub { font-size: 1rem; color: var(--color-text); margin: 0.5rem 0 1.5rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-dot, .roadmap-tab, .tab-num, .tab-label { animation: none; transition: none; }
+  }
+</style>
+
+<script>
+  // Roadmap tab slider
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.roadmap-tab');
+  const panels = document.querySelectorAll<HTMLElement>('.roadmap-panel');
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('roadmap-tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(p => { p.hidden = true; p.setAttribute('aria-hidden', 'true'); });
+
+      tab.classList.add('roadmap-tab--active');
+      tab.setAttribute('aria-selected', 'true');
+      panels[i].hidden = false;
+      panels[i].setAttribute('aria-hidden', 'false');
+    });
+
+    // Keyboard: left/right arrow navigation
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        const next = tabs[(i + 1) % tabs.length];
+        next.click(); next.focus();
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prev = tabs[(i - 1 + tabs.length) % tabs.length];
+        prev.click(); prev.focus();
+      }
+    });
+  });
+</script>

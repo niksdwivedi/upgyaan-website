@@ -1,0 +1,374 @@
+---
+const regularLinks = [
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  // { label: 'Newsletter', href: '/newsletter' }, // re-enable when newsletter launches
+  { label: 'FAQ', href: '/faq' },
+];
+
+const communityItems = [
+  { label: 'Member Community', href: '/community' },
+  { label: 'Mentors', href: '/for-mentors' },
+  { label: 'Roadmap', href: '/roadmap' },
+];
+
+const currentPath = Astro.url.pathname;
+const isCommunityActive = communityItems.some(l => currentPath.startsWith(l.href) && l.href !== '/');
+---
+
+<header class="site-header" role="banner">
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="/" class="nav-logo" aria-label="UpGyaan — return to homepage">
+        <img
+          src="/brand/logo.png"
+          alt="UpGyaan"
+          width="150"
+          height="50"
+          loading="eager"
+        />
+      </a>
+
+      <!-- Desktop centre links -->
+      <ul class="nav-links" role="list">
+      <!-- Community dropdown -->
+        <li class="has-dropdown">
+          <button
+            class={`nav-link nav-dropdown-btn ${isCommunityActive ? 'nav-link--active' : ''}`}
+            aria-expanded="false"
+            aria-controls="community-dropdown"
+            aria-haspopup="true"
+            type="button"
+          >
+            Community
+            <svg class="nav-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="nav-dropdown" id="community-dropdown" role="list" hidden>
+            {communityItems.map(item => (
+              <li>
+                <a
+                  href={item.href}
+                  class={`dropdown-link ${currentPath.startsWith(item.href) && item.href !== '/' ? 'dropdown-link--active' : ''}`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+        {regularLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`nav-link ${currentPath.startsWith(link.href) ? 'nav-link--active' : ''}`}
+              aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+
+        
+      </ul>
+
+      <!-- Desktop CTA -->
+      <div class="nav-cta">
+        <a href="/join" class="btn-primary nav-btn">Join the community</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="nav-hamburger"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation"
+        type="button"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation" hidden>
+      <ul role="list">
+        <!-- Community section -->
+        <li class="mobile-section">
+          <span class="mobile-section-label">Community</span>
+          <ul class="mobile-sub-list" role="list">
+            {communityItems.map(item => (
+              <li>
+                <a
+                  href={item.href}
+                  class={`mobile-nav-link mobile-sub-link ${currentPath.startsWith(item.href) && item.href !== '/' ? 'mobile-nav-link--active' : ''}`}
+                  aria-current={currentPath.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+
+        {regularLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`mobile-nav-link ${currentPath.startsWith(link.href) ? 'mobile-nav-link--active' : ''}`}
+              aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+
+        <li>
+          <a href="/join" class="btn-primary mobile-cta">Join the community</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(250, 250, 248, 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0.875rem 1.5rem;
+  }
+
+  @media (min-width: 768px) { .nav-inner { padding: 0.875rem 2rem; } }
+  @media (min-width: 1024px) { .nav-inner { padding: 0.875rem 3rem; } }
+
+  .nav-logo { flex-shrink: 0; display: block; text-decoration: none; }
+  .nav-logo img { height: 36px; width: auto; display: block; }
+  .nav-logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; color: var(--color-black); }
+  .nav-logo span { color: var(--color-amber-text); }
+
+  .nav-links {
+    display: none;
+    list-style: none;
+    margin: 0; padding: 0; gap: 0.25rem;
+    align-items: center;
+  }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.875rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--color-surface); color: var(--color-black); }
+  .nav-link--active { color: var(--color-teal); font-weight: 600; }
+
+  /* Dropdown */
+  .has-dropdown { position: relative; }
+
+  .nav-chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-dropdown-btn[aria-expanded="true"] .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0.375rem;
+    z-index: 200;
+    animation: dropdown-in 0.14s ease;
+  }
+
+  @keyframes dropdown-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .nav-dropdown[hidden] { display: none; }
+
+  .dropdown-link {
+    display: block;
+    padding: 0.6rem 0.875rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.12s ease, color 0.12s ease;
+    white-space: nowrap;
+  }
+  .dropdown-link:hover { background: var(--color-surface); color: var(--color-black); }
+  .dropdown-link--active { color: var(--color-teal); font-weight: 600; }
+
+  .nav-cta { display: none; }
+  @media (min-width: 768px) { .nav-cta { display: block; } }
+
+  .nav-btn { font-size: 0.875rem; padding: 0.55rem 1.25rem; }
+
+  .nav-hamburger {
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 5px; width: 40px; height: 40px; padding: 8px;
+    background: none; border: none; border-radius: 6px; cursor: pointer; flex-shrink: 0;
+  }
+  @media (min-width: 768px) { .nav-hamburger { display: none; } }
+  .nav-hamburger:hover { background: var(--color-surface); }
+
+  .hamburger-bar {
+    display: block; width: 100%; height: 2px;
+    background: var(--color-black); border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) { opacity: 0; }
+  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu { border-top: 1px solid var(--color-border); background: var(--color-bg); }
+  .mobile-menu[hidden] { display: none; }
+  .mobile-menu > ul { list-style: none; margin: 0; padding: 1rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.125rem; }
+
+  .mobile-nav-link {
+    display: block; padding: 0.75rem 1rem;
+    font-family: var(--font-body); font-weight: 500; font-size: 1rem;
+    color: var(--color-text); text-decoration: none; border-radius: 6px;
+  }
+  .mobile-nav-link:hover { background: var(--color-surface); color: var(--color-black); }
+  .mobile-nav-link--active { color: var(--color-teal); font-weight: 600; }
+  .mobile-cta { display: block; margin-top: 0.5rem; text-align: center; }
+
+  .mobile-section { margin-bottom: 0.5rem; }
+
+  .mobile-section-label {
+    display: block;
+    padding: 0.5rem 1rem 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
+  }
+
+  .mobile-sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-sub-link {
+    padding-left: 1.75rem;
+    font-size: 0.9375rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-bar, .nav-link, .mobile-nav-link, .nav-chevron, .dropdown-link { transition: none; }
+  }
+</style>
+
+<script>
+  let navController: AbortController | null = null;
+
+  function initNav() {
+    // Tear down all listeners from the previous page before re-attaching
+    if (navController) navController.abort();
+    navController = new AbortController();
+    const { signal } = navController;
+
+    // Hamburger
+    const hamburger = document.querySelector('.nav-hamburger') as HTMLButtonElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!isExpanded));
+        mobileMenu.hidden = isExpanded;
+      }, { signal });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.hidden = true;
+        }, { signal });
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !mobileMenu.hidden) {
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.hidden = true;
+          hamburger.focus();
+        }
+      }, { signal });
+    }
+
+    // Community dropdown
+    const dropdownBtn = document.querySelector('.nav-dropdown-btn') as HTMLButtonElement;
+    const dropdown = document.getElementById('community-dropdown') as HTMLElement;
+
+    if (dropdownBtn && dropdown) {
+      dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = dropdownBtn.getAttribute('aria-expanded') === 'true';
+        dropdownBtn.setAttribute('aria-expanded', String(!isExpanded));
+        dropdown.hidden = isExpanded;
+      }, { signal });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!(e.target as Element).closest('.has-dropdown')) {
+          dropdownBtn.setAttribute('aria-expanded', 'false');
+          dropdown.hidden = true;
+        }
+      }, { signal });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !dropdown.hidden) {
+          dropdownBtn.setAttribute('aria-expanded', 'false');
+          dropdown.hidden = true;
+          dropdownBtn.focus();
+        }
+      }, { signal });
+    }
+  }
+
+  // Run on initial load and after every Astro client-side navigation
+  document.addEventListener('astro:page-load', initNav);
+</script>

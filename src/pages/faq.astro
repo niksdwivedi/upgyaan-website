@@ -1,0 +1,326 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const faqs = [
+  {
+    category: 'About UpGyaan',
+    items: [
+      {
+        q: 'What is UpGyaan?',
+        a: `UpGyaan is a career growth community for tech professionals — early-career, mid-career, and senior leaders. It is built around six interconnected pillars: Academy, Mentor Circle, AI Insights, Community Hub, Visibility Engine, and Career Launchpad.`,
+        links: [{ label: 'Read our full story', href: '/about' }, { label: 'Explore the community', href: '/community' }],
+      },
+      {
+        q: 'How is UpGyaan different from LinkedIn or other platforms?',
+        a: `LinkedIn is a broadcast platform. UpGyaan is a structured community. LinkedIn rewards content that performs algorithmically; UpGyaan is built around genuine expertise, peer accountability, and outcomes. We do not optimise for engagement metrics — we optimise for career growth. The mentorship, visibility, and learning on UpGyaan are intentional and community-powered, not algorithmic.`,
+        links: [{ label: 'How it works', href: '/about#pillars-heading' }, { label: 'Read about community', href: '/community' }],
+      },
+      {
+        q: 'Who is UpGyaan for?',
+        a: `UpGyaan is for any tech professional at an inflection point. If you are starting out and want to build the right foundations before habits form. If you are in the middle of your career and doing strong work that is not translating into advancement. If you are a senior practitioner looking to give back, stay sharp, and extend your influence beyond your current role. If the infrastructure for growing intentionally has felt absent — this is what we are building.`,
+        links: [{ label: 'Our story', href: '/about' }],
+      },
+    ],
+  },
+  {
+    category: 'Joining the community',
+    items: [
+      {
+        q: 'How do I join UpGyaan?',
+        a: `We are currently in Phase 1 — building the foundation. The community is not yet open for full membership, but you can register your interest now and be among the first to join when we open. To register, use the interest form and we will reach out when the time is right.`,
+        links: [{ label: 'Register your interest', href: '/join' }, { label: 'See our roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'Is UpGyaan free to join?',
+        a: `We are still finalising the membership model. Our intention is to keep the core community genuinely accessible, and to price any premium features fairly for the value they deliver. Early registrants will be the first to know — and will have a say in how it is structured.`,
+        links: [{ label: 'Register your interest', href: '/join' }],
+      },
+      {
+        q: 'I want to be a mentor. How do I sign up?',
+        a: `We'd love to hear from you. UpGyaan mentors include senior enterprise leaders, startup founders, academic researchers, and peer mentors who are a few steps ahead of the people they guide. What unites them is not a job title — it is the experience of having navigated the transitions our members are facing. If that sounds like you, visit our mentor page to express your interest and we will be in touch before Mentor Circle launches in Phase 2.`,
+        links: [{ label: 'Become a mentor', href: '/for-mentors' }, { label: 'See the roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'Can I contribute to the UpGyaan blog?',
+        a: `Yes — and we actively encourage it. The blog is community-powered. Articles, perspectives, case studies, and technical deep-dives from practitioners are all welcome. To contribute: raise a GitHub issue on the UpGyaan content repository with your proposed title and a one-paragraph summary, or email us at ${siteConfig.contact.email} with the same. We review every submission. If it fits the community's focus — career growth, mentorship, visibility, and the realities of tech — we will work with you to get it published. Open-source contributions, white papers, and collaborative writing projects are equally valued through the Visibility Engine.`,
+        links: [{ label: 'Browse the blog', href: '/blog' }],
+      },
+    ],
+  },
+  {
+    category: 'The six pillars',
+    items: [
+      {
+        q: 'What is the Mentor Circle?',
+        a: `The Mentor Circle is UpGyaan's structured mentorship programme. Unlike corporate mentorship, every relationship here is agenda-free — the mentor has no stake in where you end up. Mentors come from across the technology world: senior enterprise leaders, startup founders, academic researchers from leading universities, and peer mentors who have recently made the transition you are approaching. Matching is thoughtful, not algorithmic.`,
+        links: [{ label: 'Learn about the Mentor Circle', href: '/community/mentor-circle' }, { label: 'Become a mentor', href: '/for-mentors' }, { label: 'See the roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'What is the Academy?',
+        a: `The Academy is UpGyaan's curated learning layer — not generic online courses, but frameworks and content built specifically for career growth in tech. Think: how to navigate a promotion cycle, how to build upward influence, how to make the IC-to-manager transition successfully, how to communicate at the executive level.`,
+        links: [{ label: 'Learn about the Academy', href: '/community/academy' }, { label: 'See the roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'What is the Visibility Engine?',
+        a: `The Visibility Engine is infrastructure for building showcasable outcomes — blogs, open-source contributions, white papers, capstone projects — that are amplified across platforms and make your expertise discoverable to the right people. This is not content creation for its own sake. It is strategic visibility built on genuine contribution. Each period, the community also recognises a Showcase Champion — a member whose work exemplifies the quality the community stands for.`,
+        links: [{ label: 'Learn about the Visibility Engine', href: '/community/visibility-engine' }, { label: 'See the roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'What are City Chapters?',
+        a: `City Chapters are local, in-person communities within the UpGyaan ecosystem — organised by members, supported by UpGyaan, rooted in the specific tech ecosystem of each city. Regular meetups, workshops, Spotlight events, and Retreats. If you would like to help start a chapter in your city, email us.`,
+        links: [{ label: 'Learn about the Community Hub', href: '/community/community-hub' }, { label: 'See the full roadmap', href: '/roadmap' }, { label: 'Register your interest', href: '/join' }],
+      },
+      {
+        q: 'What are Clubs? How are they different from City Chapters?',
+        a: `Chapters and Clubs are two different ways to belong. City Chapters are geographic — your city's UpGyaan community, built around in-person events and local relationships. Clubs are interest-based — topic groups that exist across geography, online by default. A Book Club, an AI Agent Club, a Fitness Club, a Writing Club. The interests evolve with the community. A member can belong to a Chapter (because of where they live) and to multiple Clubs (because of what they care about). A City Chapter can also host a local session of a Club when there are enough members in one place.`,
+        links: [{ label: 'Learn about the Community Hub', href: '/community/community-hub' }],
+      },
+    ],
+  },
+  {
+    category: 'How we\'re launching',
+    items: [
+      {
+        q: 'How is UpGyaan launching? What are the phases?',
+        a: `UpGyaan is launching sequentially — building each layer on top of the previous one rather than trying to do everything at once. Phase 1 (Foundation) is active now: the blog, the newsletter, and early community registrations. Phase 2 (Community) follows with the Community Hub, Mentor Circle, and first City Chapters. Phase 3 (Technology) introduces the Academy, AI Insights, and Visibility Engine. Phase 4 (Expansion) extends the network globally and activates the Career Launchpad.`,
+        links: [{ label: 'See the full roadmap', href: '/roadmap' }],
+      },
+      {
+        q: 'Why launch in phases rather than all at once?',
+        a: `Because the right community has to come before the technology. The most important thing we are building is trust and culture — and that cannot be rushed or scaled artificially. Each phase is designed to create the conditions that make the next phase meaningful. The Academy works better because the community shaped it. The AI Insights layer works better because the community generated the signal. The sequencing is deliberate, not a limitation.`,
+      },
+      {
+        q: 'What is available right now?',
+        a: `Right now: the UpGyaan blog (live), the newsletter (launching), and early community registration. If you sign up now, you are part of the founding cohort — the people who shape the culture, the norms, and the direction of everything that follows. Phase 2 community features are next.`,
+        links: [{ label: 'Read the blog', href: '/blog' }, { label: 'Register your interest', href: '/join' }, { label: 'Stay in the loop', href: '/newsletter' }, { label: 'See what\'s next', href: '/roadmap' }],
+      },
+      {
+        q: 'How will I know when something new launches?',
+        a: `If you are registered, you will hear from us first — by email, before any public announcement. That is one of the main benefits of registering early. We will not spam you. When something real happens, you will be the first to know.`,
+      },
+    ],
+  },
+  {
+    category: 'Still have questions?',
+    items: [
+      {
+        q: 'I have a question that is not answered here.',
+        a: `Email us at ${siteConfig.contact.email} and we will get back to you. There are no silly questions. We are building this in public and we want to hear from you.`,
+      },
+      {
+        q: 'I have feedback or a suggestion for UpGyaan.',
+        a: `We genuinely want to hear it. This community is being built with and for its members, and early feedback shapes everything. Email us at ${siteConfig.contact.email} with your thoughts.`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ"
+  description="Frequently asked questions about UpGyaan — what it is, how to join, and how the community works."
+>
+
+  <section class="faq-hero" aria-labelledby="faq-heading">
+    <div class="container">
+      <p class="section-kicker">FAQ</p>
+      <h1 id="faq-heading">Frequently asked questions</h1>
+      <p class="page-intro">
+        Everything you want to know about UpGyaan. If you don't find your answer here, email us at
+        <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="faq-body" aria-label="FAQ sections">
+    <div class="container faq-inner">
+
+      {faqs.map((section, si) => (
+        <div class="faq-category">
+          <h2 class="faq-category-heading">{section.category}</h2>
+          <dl class="faq-list">
+            {section.items.map((item, qi) => (
+              <div class="faq-item">
+                <dt>
+                  <button
+                    class="faq-question"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls={`faq-answer-${si}-${qi}`}
+                    id={`faq-btn-${si}-${qi}`}
+                  >
+                    <span class="faq-q-text">{item.q}</span>
+                    <span class="faq-chevron" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M5 7l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+                </dt>
+                <dd
+                  id={`faq-answer-${si}-${qi}`}
+                  class="faq-answer"
+                  role="region"
+                  aria-labelledby={`faq-btn-${si}-${qi}`}
+                  hidden
+                >
+                  <p>{item.a}</p>
+                  {item.links && item.links.length > 0 && (
+                    <div class="faq-links" aria-label="Related pages">
+                      {item.links.map(link => (
+                        <a href={link.href} class="faq-link">
+                          {link.label}
+                          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq-hero {
+    padding: 4rem 0 3rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700; margin: 0.5rem 0 1rem;
+  }
+
+  .page-intro {
+    font-size: 1.0625rem; color: var(--color-text);
+    line-height: 1.7; max-width: 560px; margin: 0;
+  }
+
+  .section-kicker {
+    font-size: 0.8125rem; font-weight: 600;
+    color: var(--color-teal); text-transform: uppercase;
+    letter-spacing: 0.08em; margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+  }
+
+  .faq-body { padding: 4rem 0 6rem; }
+
+  .faq-inner { max-width: 800px; }
+
+  .faq-category { margin-bottom: 3rem; }
+
+  .faq-category-heading {
+    font-family: var(--font-heading);
+    font-size: 1.125rem; font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--color-amber);
+    display: inline-block;
+  }
+
+  .faq-list { margin: 0; padding: 0; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-item:first-of-type {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    background: none; border: none; cursor: pointer;
+    text-align: left; font-family: var(--font-body);
+  }
+
+  .faq-question:hover .faq-q-text {
+    color: var(--color-teal);
+  }
+
+  .faq-q-text {
+    font-size: 1rem; font-weight: 600;
+    color: var(--color-black); line-height: 1.4;
+    transition: color 0.15s ease;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0; color: var(--color-muted);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-question[aria-expanded="true"] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--color-teal);
+  }
+
+  .faq-question[aria-expanded="true"] .faq-q-text {
+    color: var(--color-teal);
+  }
+
+  .faq-answer {
+    padding-bottom: 1.25rem;
+  }
+
+  .faq-answer[hidden] { display: none; }
+
+  .faq-answer p {
+    font-size: 0.9375rem; color: var(--color-text);
+    line-height: 1.75; margin: 0;
+  }
+
+  .faq-links {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .faq-link {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.8125rem; font-weight: 600;
+    color: var(--color-teal);
+    background: rgba(13, 115, 119, 0.07);
+    border: 1px solid rgba(13, 115, 119, 0.2);
+    border-radius: 100px;
+    padding: 0.3rem 0.75rem;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .faq-link:hover {
+    background: rgba(13, 115, 119, 0.14);
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+    text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-chevron, .faq-q-text { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const answerId = btn.getAttribute('aria-controls');
+      const answer = answerId ? document.getElementById(answerId) : null;
+
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      if (answer) answer.hidden = isExpanded;
+    });
+  });
+</script>

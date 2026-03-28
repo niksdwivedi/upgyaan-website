@@ -1,0 +1,553 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+import { generateCoverSvg } from '../../utils/cover';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allAuthors = await getCollection('authors');
+
+// Sort by date descending
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+function getAuthor(authorSlug: string) {
+  return allAuthors.find(a => a.data.slug === authorSlug)?.data;
+}
+
+function getWordCount(body: string) {
+  return body.split(/\s+/).filter(Boolean).length;
+}
+
+// Build unique authors for author filter
+const authorSlugs = [...new Set(sortedPosts.map(p => p.data.author))];
+const filterAuthors = authorSlugs
+  .map(slug => allAuthors.find(a => a.data.slug === slug)?.data)
+  .filter(Boolean);
+
+// Build unique tags for tag filter
+const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
+
+const totalPosts = sortedPosts.length;
+---
+
+<BaseLayout
+  title="Blog"
+  description="No generic advice. No content mills. Insights from people navigating the same challenges — written for the tech professional who wants to grow with intention."
+>
+
+  <!-- ── Page header ───────────────────────────────────── -->
+  <section class="page-hero" aria-labelledby="blog-heading">
+    <div class="container">
+      <h1 id="blog-heading">Career perspectives from practitioners</h1>
+      <p class="page-intro">
+        No generic advice. No content mills. Insights from people navigating the same challenges — written for the tech professional who wants to grow with intention.
+      </p>
+    </div>
+  </section>
+
+  <div class="blog-page">
+    <div class="container">
+
+      <!-- ── Filter bar ────────────────────────────────────── -->
+      <div class="filter-bar" aria-label="Filter posts">
+
+        <!-- Search input -->
+        <div class="search-wrapper">
+          <label for="blog-search" class="sr-only">Search posts</label>
+          <svg class="search-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input
+            id="blog-search"
+            type="search"
+            placeholder="Search by title, topic, or keyword…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+
+        <!-- Tag pills -->
+        <div class="tag-pills" role="group" aria-label="Filter by topic">
+          <button class="tag-btn tag-btn--active" data-tag="all" type="button" aria-pressed="true">
+            All topics
+          </button>
+          {allTags.map(tag => (
+            <button class="tag-btn" data-tag={tag} type="button" aria-pressed="false">
+              {tag}
+            </button>
+          ))}
+        </div>
+
+        <!-- Results counter -->
+        <p id="results-count" class="results-count" hidden aria-live="polite" aria-atomic="true">
+          Showing <span id="results-count-visible">0</span> of {totalPosts} posts
+        </p>
+      </div>
+
+      <!-- ── Author filter ────────────────────────────────── -->
+      {filterAuthors.length > 1 && (
+        <div class="author-filter" role="group" aria-label="Filter posts by author">
+          <span class="filter-label" id="filter-label">Filter by author:</span>
+          <div class="filter-buttons" aria-labelledby="filter-label">
+            <button
+              class="filter-btn filter-btn--active"
+              data-author="all"
+              aria-pressed="true"
+              type="button"
+            >
+              All
+            </button>
+            {filterAuthors.map(author => author && (
+              <button
+                class="filter-btn"
+                data-author={author.slug}
+                aria-pressed="false"
+                type="button"
+              >
+                {author.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- ── Posts grid ───────────────────────────────────── -->
+      <section class="posts-section" aria-labelledby="posts-label" aria-live="polite" aria-atomic="false">
+        <h2 id="posts-label" class="sr-only">All posts</h2>
+        <div class="posts-grid" id="posts-grid">
+          {sortedPosts.map((post) => {
+            const author = getAuthor(post.data.author);
+            if (!author) return null;
+            return (
+              <div
+                class="post-card-wrapper"
+                data-author={post.data.author}
+                data-title={post.data.title.toLowerCase()}
+                data-description={(post.data.description ?? '').toLowerCase()}
+                data-tags={post.data.tags.join(',').toLowerCase()}
+              >
+                <BlogCard
+                  title={post.data.title}
+                  slug={post.id}
+                  description={post.data.description}
+                  publishDate={post.data.publishDate}
+                  author={{
+                    name: author.name,
+                    slug: author.slug,
+                    avatar: author.avatar,
+                    twitter: author.twitter,
+                    linkedin: author.linkedin,
+                  }}
+                  tags={post.data.tags}
+                  coverImage={post.data.coverImage}
+                  wordCount={getWordCount(post.body ?? '')}
+                  featured={post.data.featured}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Empty state -->
+        <div id="no-posts-msg" class="no-posts" hidden aria-live="polite">
+          <p>No posts match your filters.</p>
+          <button class="reset-filter-link" id="clear-all-btn" type="button">Clear all filters</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 4rem 0 3rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+  }
+
+  .page-intro {
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    margin: 0;
+    max-width: 600px;
+    line-height: 1.65;
+  }
+
+  .blog-page {
+    padding: 3rem 0 5rem;
+  }
+
+  /* ── Filter bar ─────────────────────────────────────── */
+  .filter-bar {
+    margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .search-wrapper {
+    position: relative;
+    max-width: 480px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted);
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  #blog-search {
+    width: 100%;
+    padding: 0.55rem 0.875rem 0.55rem 2.375rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-black);
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    /* Remove native search clear button in WebKit */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  #blog-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  #blog-search::placeholder {
+    color: var(--color-muted);
+  }
+
+  #blog-search:focus {
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.12);
+  }
+
+  /* Tag pills */
+  .tag-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag-btn {
+    padding: 0.3rem 0.8rem;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .tag-btn:hover {
+    background: var(--color-surface);
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
+
+  .tag-btn--active,
+  .tag-btn[aria-pressed="true"] {
+    background: var(--color-teal);
+    border-color: var(--color-teal);
+    color: #fff;
+  }
+
+  /* Results counter */
+  .results-count {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .results-count[hidden] {
+    display: none;
+  }
+
+  /* ── Author filter ──────────────────────────────────── */
+  .author-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .filter-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.35rem 0.875rem;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .filter-btn:hover,
+  .filter-btn--active,
+  .filter-btn[aria-pressed="true"] {
+    background: var(--color-black);
+    border-color: var(--color-black);
+    color: #fff;
+  }
+
+  /* ── Posts grid ─────────────────────────────────────── */
+  .posts-section {
+    position: relative;
+  }
+
+  .posts-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .post-card-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card-wrapper[hidden] {
+    display: none;
+  }
+
+  /* ── No posts ───────────────────────────────────────── */
+  .no-posts {
+    padding: 3rem;
+    text-align: center;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .no-posts p {
+    margin: 0;
+  }
+
+  .no-posts[hidden] {
+    display: none;
+  }
+
+  .reset-filter-link {
+    background: none;
+    border: 1.5px solid var(--color-teal);
+    border-radius: 100px;
+    color: var(--color-teal);
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .reset-filter-link:hover {
+    background: var(--color-teal);
+    color: #fff;
+  }
+
+  /* ── Utility ────────────────────────────────────────── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tag-btn,
+    .filter-btn,
+    #blog-search,
+    .reset-filter-link {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initBlogFilters() {
+    // Only run when the blog search input is present on this page
+    const searchInput = document.getElementById('blog-search') as HTMLInputElement | null;
+    if (!searchInput) return;
+
+  // ── State ────────────────────────────────────────────
+  let activeAuthor = 'all';
+  let activeTag = 'all';
+  let searchText = '';
+  let searchTimer: ReturnType<typeof setTimeout> | null = null;
+
+  // ── Elements ─────────────────────────────────────────
+  const postCards = document.querySelectorAll<HTMLElement>('.post-card-wrapper');
+  const noPostsMsg = document.getElementById('no-posts-msg') as HTMLElement | null;
+  const resultsCount = document.getElementById('results-count') as HTMLElement | null;
+  const resultsCountVisible = document.getElementById('results-count-visible') as HTMLElement | null;
+  const tagBtns = document.querySelectorAll<HTMLButtonElement>('.tag-btn');
+  const authorBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const clearAllBtn = document.getElementById('clear-all-btn') as HTMLButtonElement | null;
+
+  const total = postCards.length;
+
+  // ── Core filter ──────────────────────────────────────
+  function applyFilters() {
+    let visibleCount = 0;
+
+    postCards.forEach(card => {
+      const cardAuthor = card.dataset.author ?? '';
+      const cardTitle = card.dataset.title ?? '';
+      const cardDesc = card.dataset.description ?? '';
+      const cardTags = card.dataset.tags ?? '';
+
+      const passesAuthor = activeAuthor === 'all' || cardAuthor === activeAuthor;
+      const passesTag = activeTag === 'all' || cardTags.split(',').includes(activeTag.toLowerCase());
+      const passesSearch = searchText === '' ||
+        cardTitle.includes(searchText) ||
+        cardDesc.includes(searchText) ||
+        cardTags.includes(searchText);
+
+      const show = passesAuthor && passesTag && passesSearch;
+      card.hidden = !show;
+      if (show) visibleCount++;
+    });
+
+    // Update empty state
+    if (noPostsMsg) {
+      noPostsMsg.hidden = visibleCount > 0;
+    }
+
+    // Update results counter — hidden when all posts are showing
+    if (resultsCount && resultsCountVisible) {
+      const isFiltering = activeAuthor !== 'all' || activeTag !== 'all' || searchText !== '';
+      resultsCount.hidden = !isFiltering;
+      if (isFiltering) {
+        resultsCountVisible.textContent = String(visibleCount);
+      }
+    }
+  }
+
+  // ── Author filter ────────────────────────────────────
+  authorBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeAuthor = btn.dataset.author ?? 'all';
+      authorBtns.forEach(b => {
+        const isActive = b.dataset.author === activeAuthor;
+        b.classList.toggle('filter-btn--active', isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
+      applyFilters();
+    });
+  });
+
+  // ── Tag filter ───────────────────────────────────────
+  tagBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeTag = btn.dataset.tag ?? 'all';
+      tagBtns.forEach(b => {
+        const isActive = b.dataset.tag === activeTag;
+        b.classList.toggle('tag-btn--active', isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
+      applyFilters();
+    });
+  });
+
+  // ── Search filter (debounced 250ms) ──────────────────
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      if (searchTimer) clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        searchText = searchInput.value.trim().toLowerCase();
+        applyFilters();
+      }, 250);
+    });
+  }
+
+  // ── Clear all ────────────────────────────────────────
+  function clearAll() {
+    activeAuthor = 'all';
+    activeTag = 'all';
+    searchText = '';
+
+    if (searchInput) searchInput.value = '';
+
+    authorBtns.forEach(b => {
+      const isActive = b.dataset.author === 'all';
+      b.classList.toggle('filter-btn--active', isActive);
+      b.setAttribute('aria-pressed', String(isActive));
+    });
+
+    tagBtns.forEach(b => {
+      const isActive = b.dataset.tag === 'all';
+      b.classList.toggle('tag-btn--active', isActive);
+      b.setAttribute('aria-pressed', String(isActive));
+    });
+
+    applyFilters();
+  }
+
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener('click', clearAll);
+  }
+  } // end initBlogFilters
+
+  // Run on first load and after every ViewTransition navigation
+  initBlogFilters();
+  document.addEventListener('astro:page-load', initBlogFilters);
+</script>

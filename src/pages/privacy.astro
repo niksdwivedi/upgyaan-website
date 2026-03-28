@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const lastUpdated = '28 March 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How UpGyaan collects, uses, and protects your personal information."
+>
+
+  <section class="privacy-hero" aria-labelledby="privacy-heading">
+    <div class="container">
+      <p class="section-kicker">Legal</p>
+      <h1 id="privacy-heading">Privacy Policy</h1>
+      <p class="last-updated">Last updated: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <div class="privacy-body">
+    <div class="container privacy-inner">
+
+      <section aria-labelledby="intro-heading">
+        <h2 id="intro-heading">Overview</h2>
+        <p>
+          UpGyaan ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>") is a career growth community for tech professionals. This Privacy Policy explains what personal information we collect when you use <a href="https://upgyaan.com">upgyaan.com</a>, how we use it, and the rights you have in relation to it.
+        </p>
+        <p>
+          We collect only what we need. We do not sell your data. We do not share your data with third parties for advertising purposes. That is the short version — the full detail is below.
+        </p>
+        <p>
+          If you have any questions about this policy or how we handle your data, email us at <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>.
+        </p>
+      </section>
+
+      <section aria-labelledby="collect-heading">
+        <h2 id="collect-heading">What information we collect</h2>
+
+        <h3>Information you give us directly</h3>
+        <p>When you submit a form on the UpGyaan website (including the interest registration form, the join form, or any newsletter sign-up), we collect:</p>
+        <ul>
+          <li>Your <strong>first name</strong></li>
+          <li>Your <strong>email address</strong></li>
+          <li>Optional information you choose to provide: city, career stage, a message about what you're looking for</li>
+        </ul>
+
+        <h3>Information collected automatically</h3>
+        <p>
+          Like most websites, our hosting infrastructure automatically logs basic technical information when you visit the site — including your IP address, browser type, referring URL, and the pages you visit. This is standard server log data used for site operations and security, not for individual tracking.
+        </p>
+        <p>
+          We do not currently use analytics cookies or advertising trackers. If this changes, this policy will be updated before any change takes effect.
+        </p>
+      </section>
+
+      <section aria-labelledby="use-heading">
+        <h2 id="use-heading">How we use your information</h2>
+        <p>We use the information you submit to:</p>
+        <ul>
+          <li>Contact you with updates about the UpGyaan community launch — only if you have asked us to</li>
+          <li>Respond to questions or messages you send us</li>
+          <li>Understand who is interested in UpGyaan so we can build the right community</li>
+        </ul>
+        <p>
+          We will not send you unsolicited marketing. Every communication we send you will be something you asked for, and every communication will include a clear way to stop receiving further messages.
+        </p>
+      </section>
+
+      <section aria-labelledby="store-heading">
+        <h2 id="store-heading">How we store your information</h2>
+        <p>
+          Form submissions are logged to our server infrastructure. Depending on configuration, submissions may also be stored in a secure spreadsheet accessible only to the UpGyaan founding team.
+        </p>
+        <p>
+          We take reasonable technical measures to protect your information, including encrypted transmission (HTTPS) and access controls on any stored data. No storage method is 100% secure — if you have concerns, email us.
+        </p>
+      </section>
+
+      <section aria-labelledby="share-heading">
+        <h2 id="share-heading">Who we share your information with</h2>
+        <p>We do not sell, rent, or trade your personal information. We may share it with:</p>
+        <ul>
+          <li><strong>Service providers</strong> who help us operate the website (e.g. our hosting and infrastructure providers). These providers process data only as instructed by us and under appropriate data processing terms.</li>
+          <li><strong>Law enforcement or regulatory authorities</strong> if required by law or to protect the rights and safety of UpGyaan and its users.</li>
+        </ul>
+        <p>That's the full list. No advertising networks. No data brokers. No third-party marketing platforms.</p>
+      </section>
+
+      <section aria-labelledby="rights-heading">
+        <h2 id="rights-heading">Your rights</h2>
+        <p>Depending on where you are based, you may have rights including:</p>
+        <ul>
+          <li><strong>Access</strong> — request a copy of the personal information we hold about you</li>
+          <li><strong>Correction</strong> — ask us to correct inaccurate information</li>
+          <li><strong>Deletion</strong> — ask us to delete your information</li>
+          <li><strong>Withdrawal of consent</strong> — stop receiving communications from us at any time</li>
+        </ul>
+        <p>
+          To exercise any of these rights, email us at <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>. We will respond within a reasonable timeframe.
+        </p>
+      </section>
+
+      <section aria-labelledby="cookies-heading">
+        <h2 id="cookies-heading">Cookies</h2>
+        <p>
+          UpGyaan does not use tracking or advertising cookies. The website may use essential session cookies required for basic functionality (such as form submission security). These do not track you across sites and are deleted when you close your browser.
+        </p>
+      </section>
+
+      <section aria-labelledby="children-heading">
+        <h2 id="children-heading">Children's privacy</h2>
+        <p>
+          UpGyaan is not directed at children under 16 years of age. We do not knowingly collect personal information from anyone under 16. If you believe we have inadvertently collected such information, please contact us immediately.
+        </p>
+      </section>
+
+      <section aria-labelledby="changes-heading">
+        <h2 id="changes-heading">Changes to this policy</h2>
+        <p>
+          We will update this policy when our practices change. Significant changes will be communicated to registered users by email before they take effect. The date at the top of this page always reflects the most recent update.
+        </p>
+      </section>
+
+      <section aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p>
+          For any privacy-related questions or requests, email us at <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .privacy-hero {
+    padding: 4rem 0 3rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .privacy-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700; margin: 0.5rem 0 0.5rem;
+  }
+
+  .section-kicker {
+    font-size: 0.8125rem; font-weight: 600;
+    color: var(--color-teal); text-transform: uppercase;
+    letter-spacing: 0.08em; margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+  }
+
+  .last-updated {
+    font-size: 0.875rem; color: var(--color-muted); margin: 0;
+  }
+
+  .privacy-body { padding: 4rem 0 6rem; }
+
+  .privacy-inner {
+    max-width: 720px;
+  }
+
+  .privacy-inner section {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .privacy-inner section:last-child {
+    border-bottom: none; margin-bottom: 0; padding-bottom: 0;
+  }
+
+  .privacy-inner h2 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--color-black); margin: 0 0 1rem;
+  }
+
+  .privacy-inner h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem; font-weight: 700;
+    color: var(--color-black); margin: 1.5rem 0 0.5rem;
+  }
+
+  .privacy-inner p {
+    font-size: 0.9375rem; color: var(--color-text);
+    line-height: 1.75; margin: 0 0 1rem;
+  }
+
+  .privacy-inner p:last-child { margin-bottom: 0; }
+
+  .privacy-inner ul {
+    padding-left: 1.5rem; margin: 0 0 1rem;
+  }
+
+  .privacy-inner li {
+    font-size: 0.9375rem; color: var(--color-text);
+    line-height: 1.7; margin-bottom: 0.4rem;
+  }
+</style>

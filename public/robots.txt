@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The /join page is intentionally not in the nav — keep it word-of-mouth only
+Disallow: /join
+
+Sitemap: https://upgyaan.com/sitemap-index.xml

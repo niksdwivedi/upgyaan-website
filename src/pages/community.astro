@@ -1,0 +1,662 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+
+const pillars = [
+  {
+    icon: '🎓',
+    label: 'Academy',
+    tagline: 'Career frameworks built for real transitions — not generic courses',
+    bullets: [
+      'IC to lead, lead to manager, manager to senior — structured for each inflection',
+      'Regular live sessions with practitioners who have made the move',
+      'Curriculum refined by community signal, not a fixed syllabus',
+    ],
+    href: '/community/academy',
+  },
+  {
+    icon: '🤝',
+    label: 'Mentor Circle',
+    tagline: 'Agenda-free guidance from people who navigated what you are facing',
+    bullets: [
+      'Mentors from enterprise, startups, and leading academic institutions',
+      'Thoughtful matching — not algorithmic, not based on availability',
+      'Focus on the transition ahead of you, not managing your current role',
+    ],
+    href: '/community/mentor-circle',
+  },
+  {
+    icon: '🤖',
+    label: 'AI Insights',
+    tagline: 'Not artificially intelligent — community signal, not generic advice',
+    bullets: [
+      'NLP analysis separates meaningful contributions from noise',
+      'Skill and personality matrix tracks your trajectory, not just your title',
+      'Mentor-validated recommendations for your highest-leverage next moves',
+    ],
+    href: '/community/ai-insights',
+  },
+  {
+    icon: '🌐',
+    label: 'Community Hub',
+    tagline: 'A peer group that challenges you — not just a network',
+    bullets: [
+      'Accountability circles of 6–8 peers, matched by career stage and context',
+      'Structured forums where knowledge accumulates instead of disappearing into a feed',
+      'Members find co-founders, hires, and collaborators through contribution, not cold outreach',
+    ],
+    href: '/community/community-hub',
+  },
+  {
+    icon: '👁',
+    label: 'Visibility Engine',
+    tagline: 'Showcasable outcomes that outlast any single role',
+    bullets: [
+      'Blogs, open-source, white papers, and capstone projects — amplified across platforms',
+      'Showcase Champion recognition for outstanding contributors each period',
+      'A body of work that attracts collaborations, speaking slots, and career opportunities',
+    ],
+    href: '/community/visibility-engine',
+  },
+  {
+    icon: '🚀',
+    label: 'Career Launchpad',
+    tagline: 'Where community trust converts into real opportunities',
+    bullets: [
+      'Jobs, projects, and advisory roles sourced through relationships, not cold applications',
+      'Employers who hire based on proven community-attested capability',
+      'Where every other pillar converges into tangible career momentum',
+    ],
+    href: '/community/career-launchpad',
+  },
+];
+---
+
+<BaseLayout
+  title="Community"
+  description="UpGyaan is a community for the ambitious and the generous — where career growth happens through people, not algorithms. Explore what we're building."
+>
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="page-hero" aria-labelledby="community-heading">
+    <div class="container">
+      <p class="section-kicker">Community</p>
+      <h1 id="community-heading">A community for the ambitious and the generous</h1>
+      <p class="page-intro">
+        The best career moves happen through relationships. UpGyaan is built to create the right ones — through peer groups, mentorship, shared knowledge, and trust built over time.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── The story ─────────────────────────────────────── -->
+  <section class="content-section reveal" aria-labelledby="story-heading">
+    <div class="container content-narrow">
+      <p class="section-kicker">Why community</p>
+      <h2 id="story-heading">Community is the mechanism, not the side effect</h2>
+      <blockquote class="community-principle">
+        <p>A community of the people, by the people, for the people — supported and backed by technology.</p>
+      </blockquote>
+      <p>
+        Every meaningful career breakthrough has the same anatomy: the right knowledge, applied at the right moment, with the support of the right people. Products and platforms can deliver knowledge. Only community can deliver the other two.
+      </p>
+      <p>
+        The career growth gap in tech is not an information problem. There is more content about career development available today than any previous generation could access. The gap is structural — the absence of peer relationships that challenge you, mentors genuinely invested in your progress, and an environment where the norms are ambition and generosity rather than performance and posturing.
+      </p>
+      <p>
+        UpGyaan is built to create that environment. Not as a side effect of some other product — as the central design principle. Community is not what we built to support the platform. Community <em>is</em> the platform. And when you contribute genuinely to a community like this, something interesting happens: people notice. The co-founder you didn't know you needed, the person who becomes your next hire, the collaborator who makes your research more than you could have made it alone — these connections form through contribution, not cold outreach.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Six pillars: card grid ───────────────────────── -->
+  <section class="pillars-section bg-surface reveal" aria-labelledby="pillars-heading">
+    <div class="container">
+      <p class="section-kicker">The ecosystem</p>
+      <h2 id="pillars-heading" class="section-heading">Six pillars. One integrated career growth ecosystem.</h2>
+      <p class="pillars-intro">
+        Each pillar solves a distinct problem. Together, they compound — so the more you engage, the more every part works harder for you.
+      </p>
+
+      <div class="pillars-grid">
+        {pillars.map(p => (
+          <div class="pillar-card">
+            <span class="pillar-emoji" aria-hidden="true">{p.icon}</span>
+            <h3 class="pillar-name"><a href={p.href} class="pillar-name-link">{p.label}</a></h3>
+            <p class="pillar-tagline">{p.tagline}</p>
+            <ul class="pillar-bullets">
+              {p.bullets.map(b => <li>{b}</li>)}
+            </ul>
+            <a href={p.href} class="pillar-learn-more">
+              Learn more
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Offline + online ───────────────────────────────── -->
+  <section class="offline-section bg-surface reveal" aria-labelledby="offline-heading">
+    <div class="container">
+      <p class="section-kicker">Online &amp; offline</p>
+      <h2 id="offline-heading" class="section-heading">Stronger together — wherever you are</h2>
+      <p class="offline-intro">
+        The most durable professional relationships are built in person. UpGyaan is a digital-first community, but not a digital-only one.
+      </p>
+
+      <div class="offline-grid offline-grid--2x2">
+        <div class="offline-card offline-card--featured">
+          <div class="offline-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 24V12L14 4l10 8v12" stroke="#0D7377" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="10" y="16" width="8" height="8" rx="1" stroke="#0D7377" stroke-width="1.75"/>
+            </svg>
+          </div>
+          <div class="offline-card-label">Geographic</div>
+          <h3>City Chapters</h3>
+          <p>
+            Local chapters in major tech hubs — regular in-person meetups, workshops, and peer dinners. A Chapter is your city's UpGyaan community: organised by members, supported by UpGyaan, rooted in the specific tech ecosystem where you live and work. The digital community becomes real here.
+          </p>
+        </div>
+        <div class="offline-card offline-card--featured">
+          <div class="offline-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="10" cy="10" r="4" stroke="#0D7377" stroke-width="1.75"/>
+              <circle cx="20" cy="10" r="4" stroke="#0D7377" stroke-width="1.75"/>
+              <circle cx="15" cy="20" r="4" stroke="#0D7377" stroke-width="1.75"/>
+              <path d="M14 10h1M18 14l-2 4M12 14l2 4" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="offline-card-label">Interest-based</div>
+          <h3>Clubs</h3>
+          <p>
+            Interest-based groups that cut across geography — online by default, local when a Chapter chooses to run one. A Club is formed around shared curiosity: a Book Club working through career and leadership titles, an AI Agent Club building tools together, a Fitness Club keeping each other accountable, a Writing Club for members developing their voice. The interests evolve with the community.
+          </p>
+        </div>
+        <div class="offline-card">
+          <div class="offline-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <polygon points="14,4 16,11 24,11 17,16 20,24 14,19 8,24 11,16 4,11 12,11" stroke="#0D7377" stroke-width="1.75" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <h3>Spotlight</h3>
+          <p>
+            Member speaking events — regular opportunities to present your work, share your expertise, and build the kind of visible credibility that a CV cannot. Online and in-person, from five-minute lightning talks to keynote-style sessions at Chapter events. Not a conference. A community putting its members on stage.
+          </p>
+        </div>
+        <div class="offline-card">
+          <div class="offline-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 20c2-4 4-6 10-6s8 2 10 6" stroke="#0D7377" stroke-width="1.75" stroke-linecap="round"/>
+              <path d="M14 14V8" stroke="#0D7377" stroke-width="1.75" stroke-linecap="round"/>
+              <path d="M8 12l6-4 6 4" stroke="#0D7377" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="22" r="2" stroke="#0D7377" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Retreats</h3>
+          <p>
+            Annual retreats for deep immersion — focused learning, structured conversations, and the kind of relationship-building that only happens when you spend more than a few hours with people you already know. UpGyaan retreats are small by design. The intimacy is the point.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Platforms ────────────────────────────────────── -->
+  <section class="platforms-section reveal" aria-labelledby="platforms-heading">
+    <div class="container">
+      <p class="section-kicker">How we work together</p>
+      <h2 id="platforms-heading" class="section-heading">The tools that hold the community together</h2>
+      <p class="platforms-intro">
+        UpGyaan lives on the platforms tech professionals already use. We do not ask you to adopt something new — we are deliberate about where we show up, bringing learning, contribution, and connection into a coherent experience built around the tools you rely on every day.
+      </p>
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <div class="platform-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 10-5-10-5zM2 16l10 5 10-5M2 12l10 5 10-5" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Learning</h3>
+          <p>Structured courses, cohorts, and live webinars — delivered through a platform built for professional learning, not passive content consumption.</p>
+        </div>
+        <div class="platform-card">
+          <div class="platform-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Community &amp; Conversations</h3>
+          <p>Peer groups, accountability circles, and direct messaging — through the channels members are already on, so community doesn't require a new habit to form.</p>
+        </div>
+        <div class="platform-card">
+          <div class="platform-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Contribution &amp; Showcase</h3>
+          <p>GitHub, Kaggle, HackerRank, and the UpGyaan blog — where members contribute real work that builds a visible, verifiable professional track record.</p>
+        </div>
+        <div class="platform-card">
+          <div class="platform-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0D7377" stroke-width="1.5"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Visibility &amp; Reach</h3>
+          <p>LinkedIn, X, and YouTube — where community contributions are amplified beyond the platform, extending member visibility to a broader professional audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What's coming ─────────────────────────────────── -->
+  <section class="coming-section reveal" aria-labelledby="coming-heading">
+    <div class="container content-narrow">
+      <p class="section-kicker">Right now</p>
+      <h2 id="coming-heading">Building carefully and sequentially</h2>
+      <p>
+        We are in Phase 1 — building the foundation. The blog is live. The newsletter is launching. The first cohort of early members is forming. The community comes before the technology, because without the right people and the right culture, the technology is just features.
+      </p>
+      <p>
+        If you are reading this, you are early. The people who join during the foundation phase shape the culture, the norms, and the direction of everything that follows. That is not a marketing line — it is how communities actually work. We take it seriously.
+      </p>
+      <p>
+        <a href="/roadmap" class="text-link">
+          See the full roadmap — what's coming and when
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:middle">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Email CTA ───────────────────────────────────────── -->
+  <section class="cta-section dark-cta" aria-labelledby="community-cta-heading">
+    <div class="container cta-inner">
+      <p class="cta-kicker">You're early. That matters.</p>
+      <h2 id="community-cta-heading">Be among the first when we open our doors.</h2>
+      <p class="cta-sub">Register your interest now — and be first to know when the community opens, when Mentor Circle applications go live, and when City Chapters launch in your city.</p>
+      <div class="cta-form">
+        <EmailCapture id="community-cta" context="community" />
+      </div>
+      <p class="cta-reassurance">No spam. No noise. Just the updates that matter.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pillar-cta-link {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.875rem; font-weight: 600;
+    color: var(--color-teal); text-decoration: none;
+  }
+  .pillar-cta-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .platforms-section { padding: 5rem 0; border-bottom: 1px solid var(--color-border); }
+  .platforms-intro { font-size: 1.0625rem; color: var(--color-text); line-height: 1.7; max-width: 680px; margin: 0 0 2.5rem; }
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) { .platforms-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .platforms-grid { grid-template-columns: repeat(4, 1fr); } }
+  .platform-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .platform-icon {
+    width: 44px; height: 44px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .platform-card h3 { font-size: 0.9375rem; font-weight: 600; color: var(--color-black); margin: 0; }
+  .platform-card p { font-size: 0.875rem; color: var(--color-text); line-height: 1.6; margin: 0; }
+
+  .community-principle {
+    border-left: 3px solid var(--color-teal);
+    margin: 0 0 1.75rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-surface);
+    border-radius: 0 6px 6px 0;
+  }
+  .community-principle p {
+    font-size: 1.0625rem;
+    font-style: italic;
+    color: var(--color-black);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .page-hero {
+    padding: 4.5rem 0 3.5rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+    font-family: var(--font-heading);
+    color: var(--color-black);
+  }
+
+  .page-intro {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0;
+  }
+
+  .section-kicker {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+    margin: 0 0 0.5rem;
+  }
+
+  /* Story section */
+  .content-section {
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bg-surface { background: var(--color-surface); }
+
+  .content-narrow {
+    max-width: 760px;
+  }
+
+  .content-narrow h2 {
+    font-size: clamp(1.375rem, 2.5vw, 1.875rem);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  .content-narrow p {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+  }
+
+  .content-narrow p:last-child { margin-bottom: 0; }
+
+  /* ── Accordion pillars ─────────────────────────────── */
+  .pillars-section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .pillars-intro {
+    font-size: 1rem;
+    color: var(--color-text);
+    max-width: 640px;
+    margin: 0 0 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* ── Pillars card grid ─────────────────────────────── */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pillars-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .pillar-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .pillar-card:hover {
+    border-color: rgba(13, 115, 119, 0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .pillar-emoji {
+    font-size: 1.75rem;
+    line-height: 1;
+    display: block;
+  }
+
+  .pillar-name {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .pillar-name-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .pillar-name-link:hover { color: var(--color-teal); }
+
+  .pillar-tagline {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .pillar-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: auto;
+  }
+
+  .pillar-bullets li {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.5;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .pillar-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-teal);
+    font-size: 0.8rem;
+  }
+
+  .pillar-learn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    text-decoration: none;
+    transition: gap 0.15s ease;
+  }
+  .pillar-learn-more:hover { gap: 0.4rem; text-decoration: none; }
+
+  /* ── Offline section ───────────────────────────────── */
+  .offline-section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .offline-intro {
+    font-size: 1rem;
+    color: var(--color-text);
+    max-width: 600px;
+    margin: 0.75rem 0 2.5rem;
+    line-height: 1.7;
+  }
+
+  .offline-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .offline-grid--2x2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .offline-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .offline-card--featured {
+    border-color: rgba(13, 115, 119, 0.25);
+    background: rgba(13, 115, 119, 0.03);
+  }
+
+  .offline-card-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-teal);
+    background: rgba(13, 115, 119, 0.08);
+    border: 1px solid rgba(13, 115, 119, 0.2);
+    border-radius: 20px;
+    padding: 0.15rem 0.55rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .offline-icon {
+    margin-bottom: 0.75rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .offline-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 0.5rem;
+  }
+
+  .offline-card p {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .text-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    font-weight: 600; color: var(--color-teal);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.15s ease, color 0.15s ease;
+  }
+  .text-link:hover { border-bottom-color: var(--color-teal); }
+
+  /* ── What's coming ─────────────────────────────────── */
+  .coming-section {
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── CTA section ───────────────────────────────────── */
+  .cta-section {
+    padding: 5.5rem 0;
+  }
+
+  .dark-cta {
+    background: #0A1628;
+    color: #fff;
+  }
+
+  .cta-inner {
+    max-width: 640px;
+  }
+
+  .cta-kicker {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-amber);
+    margin: 0 0 0.75rem;
+  }
+
+  .dark-cta .cta-inner h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.75rem;
+  }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 2rem;
+    line-height: 1.7;
+  }
+
+  .cta-form {
+    margin-bottom: 1rem;
+  }
+
+  .cta-reassurance {
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pillar-card {
+      transition: none;
+    }
+  }
+</style>
+

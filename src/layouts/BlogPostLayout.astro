@@ -1,0 +1,344 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AuthorCard from '../components/AuthorCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { generateCoverSvg } from '../utils/cover';
+
+interface AuthorData {
+  name: string;
+  slug: string;
+  title: string;
+  bio: string;
+  avatar?: string;
+  linkedin: string;
+  twitter?: string;
+  youtube?: string;
+  instagram?: string;
+}
+
+interface RelatedPost {
+  title: string;
+  slug: string;
+  description: string;
+  publishDate: Date;
+  author: {
+    name: string;
+    slug: string;
+    avatar?: string;
+    twitter?: string;
+    linkedin?: string;
+  };
+  tags: string[];
+  coverImage?: string;
+  wordCount: number;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  author: AuthorData;
+  tags: string[];
+  coverImage?: string;
+  wordCount: number;
+  relatedPosts?: RelatedPost[];
+  schemaJson?: string;
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  author,
+  tags,
+  coverImage,
+  wordCount,
+  relatedPosts = [],
+  schemaJson,
+} = Astro.props;
+
+const resolvedCover = coverImage ?? generateCoverSvg({ title, tags, authorName: author.name });
+const readTime = Math.ceil(wordCount / 200);
+const formattedDate = publishDate.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const dateIso = publishDate.toISOString().split('T')[0];
+---
+
+<BaseLayout title={title} description={description} ogImage={coverImage} schemaJson={schemaJson}>
+  <article class="blog-post" itemscope itemtype="https://schema.org/Article">
+    <!-- Post header -->
+    <header class="post-header">
+      <div class="post-header-inner">
+        <!-- Back link -->
+        <a href="/blog" class="back-link" aria-label="Back to all blog posts">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to blog
+        </a>
+
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="post-tags" aria-label="Post tags">
+            {tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+
+        <!-- Title -->
+        <h1 class="post-title" itemprop="headline">{title}</h1>
+
+        <!-- Meta row -->
+        <div class="post-meta" aria-label="Post details">
+          <time datetime={dateIso} itemprop="datePublished" class="post-date">{formattedDate}</time>
+          <span aria-hidden="true" class="meta-sep">·</span>
+          <span class="post-read-time">{readTime} min read</span>
+        </div>
+
+        <!-- Author card inline -->
+        <div class="post-author-inline" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <AuthorCard
+            name={author.name}
+            slug={author.slug}
+            title={author.title}
+            bio={author.bio}
+            avatar={author.avatar}
+            linkedin={author.linkedin}
+            twitter={author.twitter}
+            youtube={author.youtube}
+            instagram={author.instagram}
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- Cover image -->
+    <div class="post-cover">
+      <img
+        src={resolvedCover}
+        alt={`Cover image for: ${title}`}
+        class="post-cover-img"
+        width="1200"
+        height="630"
+        loading="eager"
+        decoding="async"
+        itemprop="image"
+      />
+    </div>
+
+    <!-- Article body -->
+    <div class="post-body-wrapper">
+      <div class="post-body prose" itemprop="articleBody">
+        <slot />
+      </div>
+
+      <!-- Related posts -->
+      {relatedPosts.length > 0 && (
+        <section class="related-posts" aria-labelledby="related-heading">
+          <h3 id="related-heading">Keep reading</h3>
+          <div class="related-grid">
+            {relatedPosts.map(post => (
+              <BlogCard
+                title={post.title}
+                slug={post.slug}
+                description={post.description}
+                publishDate={post.publishDate}
+                author={post.author}
+                tags={post.tags}
+                coverImage={post.coverImage}
+                wordCount={post.wordCount}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Back to blog -->
+      <div class="post-back">
+        <a href="/blog" class="back-link-bottom">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to all posts
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    padding-bottom: 5rem;
+  }
+
+  .post-header {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .post-header-inner {
+    max-width: 768px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .post-header-inner {
+      padding-inline: 2rem;
+    }
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .post-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-black);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .post-date,
+  .post-read-time {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  .meta-sep {
+    color: var(--color-muted);
+  }
+
+  .post-author-inline {
+    margin-top: 0.5rem;
+  }
+
+  /* Cover image */
+  .post-cover {
+    max-width: 900px;
+    margin: 2rem auto 0;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .post-cover {
+      padding-inline: 2rem;
+    }
+  }
+
+  .post-cover-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Body */
+  .post-body-wrapper {
+    max-width: 768px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .post-body-wrapper {
+      padding-inline: 2rem;
+    }
+  }
+
+  .post-body {
+    max-width: 680px;
+  }
+
+  /* Related posts */
+  .related-posts {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .related-posts h3 {
+    font-family: var(--font-heading);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 1.5rem;
+  }
+
+  .related-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .related-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Back link */
+  .post-back {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .back-link-bottom {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .back-link-bottom:hover {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

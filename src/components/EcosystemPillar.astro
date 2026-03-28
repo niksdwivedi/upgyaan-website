@@ -1,0 +1,83 @@
+---
+interface Props {
+  label: string;
+  description: string;
+  icon: string; // inline SVG string or emoji
+  iconIsEmoji?: boolean;
+}
+
+const { label, description, icon, iconIsEmoji = false } = Astro.props;
+---
+
+<div class="pillar-card">
+  <div class="pillar-icon" aria-hidden="true">
+    {iconIsEmoji ? (
+      <span class="pillar-emoji">{icon}</span>
+    ) : (
+      <Fragment set:html={icon} />
+    )}
+  </div>
+  <h3 class="pillar-label">{label}</h3>
+  <p class="pillar-description">{description}</p>
+</div>
+
+<style>
+  .pillar-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pillar-card:hover {
+    border-color: var(--color-teal);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .pillar-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+  }
+
+  .pillar-emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .pillar-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-teal);
+  }
+
+  .pillar-label {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .pillar-description {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pillar-card {
+      transition: none;
+    }
+  }
+</style>

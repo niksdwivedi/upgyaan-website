@@ -1,0 +1,36 @@
+<svg width="1440" height="700" viewBox="0 0 1440 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Deep background -->
+  <rect width="1440" height="700" fill="#0a1628"/>
+  <!-- Warm gradient overlay top-right -->
+  <radialGradient id="g1" cx="85%" cy="20%" r="55%" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#F9A825" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1440" height="700" fill="url(#g1)"/>
+  <!-- Teal accent bottom-left -->
+  <radialGradient id="g2" cx="10%" cy="90%" r="45%" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#0D7377" stop-opacity="0.20"/>
+    <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1440" height="700" fill="url(#g2)"/>
+  <!-- Subtle grid lines -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="100" x2="1440" y2="100"/>
+    <line x1="0" y1="200" x2="1440" y2="200"/>
+    <line x1="0" y1="300" x2="1440" y2="300"/>
+    <line x1="0" y1="400" x2="1440" y2="400"/>
+    <line x1="0" y1="500" x2="1440" y2="500"/>
+    <line x1="0" y1="600" x2="1440" y2="600"/>
+    <line x1="240" y1="0" x2="240" y2="700"/>
+    <line x1="480" y1="0" x2="480" y2="700"/>
+    <line x1="720" y1="0" x2="720" y2="700"/>
+    <line x1="960" y1="0" x2="960" y2="700"/>
+    <line x1="1200" y1="0" x2="1200" y2="700"/>
+  </g>
+  <!-- Decorative circles -->
+  <circle cx="1100" cy="150" r="200" fill="none" stroke="#F9A825" stroke-width="1" opacity="0.08"/>
+  <circle cx="1100" cy="150" r="320" fill="none" stroke="#F9A825" stroke-width="1" opacity="0.05"/>
+  <circle cx="200" cy="550" r="160" fill="none" stroke="#0D7377" stroke-width="1" opacity="0.1"/>
+  <!-- Replace note (invisible) -->
+  <!-- Drop a real hero photo at /public/brand/hero-bg.jpg and reference it in the hero CSS for best results -->
+</svg>

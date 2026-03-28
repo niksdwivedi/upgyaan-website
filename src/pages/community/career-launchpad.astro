@@ -1,0 +1,512 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+---
+
+<BaseLayout
+  title="Career Launchpad | UpGyaan"
+  description="The UpGyaan Career Launchpad — where community trust converts into real career opportunities. Jobs, projects, and roles sourced through relationships, not cold applications."
+>
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="pillar-hero" aria-labelledby="cl-heading">
+    <div class="container">
+      <a href="/community" class="pillar-breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Community
+      </a>
+      <div class="pillar-hero-inner">
+        <p class="section-kicker">The Ecosystem — Career Launchpad</p>
+        <div class="pillar-big-icon" aria-hidden="true">🚀</div>
+        <h1 id="cl-heading">The Career Launchpad</h1>
+        <p class="pillar-hero-tagline">Where community trust converts into real opportunities</p>
+        <a href="/roadmap" class="pillar-status" aria-label="Status: Coming in a future phase — see the roadmap">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5 3v2l1.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Coming in a future phase — see the roadmap
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 1: The shift ───────────────────────────── -->
+  <section class="pillar-section" aria-labelledby="cl-idea-heading">
+    <div class="container">
+      <div class="section-with-sidebar">
+        <div class="section-main">
+          <p class="section-kicker">The idea</p>
+          <h2 id="cl-idea-heading" class="pillar-h2">Where the community becomes opportunity</h2>
+          <div class="prose-block">
+            <p>
+              The conventional career move follows a predictable path: update the CV, apply to job postings, interview with strangers who know nothing about you beyond a PDF, accept an offer from the company whose process you happened to pass. The outcome depends more on luck than on merit — more on presentation than on track record.
+            </p>
+            <p>
+              The Career Launchpad is the culmination of everything else in the UpGyaan ecosystem. It is where the community trust you have built, the visibility you have established, and the skills you have developed translate into something concrete: career moves made through relationships and reputation, not cold applications.
+            </p>
+            <p class="launchpad-note">
+              <strong>Note on how this works:</strong> Opportunities are not posted on the UpGyaan platform. Instead, organisations and individuals looking for talent use UpGyaan's tools to identify members whose community signal matches what they are looking for. The match comes to you — based on who you have become in the community, not what you submitted on a form.
+            </p>
+          </div>
+        </div>
+        <aside class="section-sidebar" aria-label="Career Launchpad at a glance">
+          <div class="sidebar-card">
+            <p class="sidebar-card-label">How it works</p>
+            <ul class="sidebar-list">
+              <li>Talent seekers use community signals to find the right match</li>
+              <li>Your track record speaks before you do</li>
+              <li>Introductions happen through trusted community relationships</li>
+              <li>No cold applications — community-attested capability first</li>
+            </ul>
+          </div>
+          <div class="sidebar-card sidebar-card--accent">
+            <p class="sidebar-card-label">The key difference</p>
+            <p class="sidebar-card-body">Opportunities here are not posted and applied to. They are surfaced — because the right people can see who you are through what you have contributed, not through a CV they read once.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 2: What the Launchpad surfaces ─────────── -->
+  <section class="pillar-section bg-surface" aria-labelledby="cl-opportunities-heading">
+    <div class="container">
+      <p class="section-kicker">The opportunities</p>
+      <h2 id="cl-opportunities-heading" class="pillar-h2">Real opportunities. Earned through the community.</h2>
+      <div class="features-grid">
+
+        <!-- Card 1: Jobs & Roles -->
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="3" y="10" width="22" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 10V8a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M3 17h22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M12 17v1.5a2 2 0 004 0V17" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Jobs &amp; Roles</h3>
+          <p>Full-time roles surfaced through community relationships — from companies and teams whose leaders are active in the UpGyaan ecosystem and who want to hire based on demonstrated community contribution, not a CV they read once.</p>
+        </article>
+
+        <!-- Card 2: Projects & Consulting -->
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M11 5H7a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 5h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 5L13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Projects &amp; Consulting</h3>
+          <p>Freelance engagements, consulting projects, and advisory work sourced through community trust. The kind of opportunity that rarely makes it to a job board because it goes to whoever is already known and trusted.</p>
+        </article>
+
+        <!-- Card 3: Speaking & Advisory -->
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M14 14v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M10 18l4 2 4-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 24l2-4h8l2 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 11c-1 1-1.5 2.5-.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M22 11c1 1 1.5 2.5.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Speaking &amp; Advisory</h3>
+          <p>Conference speaking slots, advisory board positions, and thought leadership opportunities — surfaced through visibility built in the community and matched to members whose expertise fits the context.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 3: The vision ──────────────────────────── -->
+  <section class="pillar-section" aria-labelledby="cl-vision-heading">
+    <div class="container">
+      <p class="section-kicker">Where this is going</p>
+      <h2 id="cl-vision-heading" class="pillar-h2">Hiring based on who you are, not who you claimed to be</h2>
+      <div class="prose-block">
+        <p>
+          The long-term vision for the Career Launchpad is a fundamentally different hiring process: interview-light, based on community-attested capability. A member who has contributed consistently over time, whose work has been reviewed and recognised by peers and mentors, and whose growth has been tracked through AI Insights — that member arrives at the hiring conversation with something no CV can replicate: a verified, community-endorsed track record.
+        </p>
+        <p>
+          This is not a pipe dream. It is already how the best hires happen in the best teams — through people who have worked with the candidate, or who have seen their work in the wild, or who were introduced by someone whose judgment they trust. The Career Launchpad systematises that. It makes the path to the right hire shorter, and the path to the right opportunity more equitable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 4: What you need to do first ───────────── -->
+  <section class="pillar-section bg-surface" aria-labelledby="cl-path-heading">
+    <div class="container">
+      <p class="section-kicker">The path</p>
+      <h2 id="cl-path-heading" class="pillar-h2">The Launchpad rewards the foundation you build</h2>
+      <ol class="steps-list" role="list">
+        <li class="step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <h3>Join the community</h3>
+            <p>Every opportunity in the Launchpad is sourced through community relationships. The first step is being present and contributing genuinely.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <h3>Build visible work</h3>
+            <p>Through the Visibility Engine — blog posts, open-source contributions, capstone projects, and white papers that give others something to evaluate beyond a description of what you have done.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
+            <h3>Develop through mentorship</h3>
+            <p>Through the Mentor Circle and the Academy, build the skills and the relationships that make your progression legible to people who have not worked with you directly.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-body">
+            <h3>Let the community attest to you</h3>
+            <p>Over time, your contributions, your peers' endorsements, and your visible track record create an identity within the community that is more credible than any application.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────────────── -->
+  <section class="pillar-cta" aria-labelledby="cl-cta-heading">
+    <div class="container">
+      <h2 id="cl-cta-heading">The people joining now are the ones the Launchpad launches first.</h2>
+      <p>The Career Launchpad is the culmination of the UpGyaan ecosystem — and it rewards the members who helped build it. Register your interest now and be part of the founding cohort.</p>
+      <div class="cta-buttons">
+        <a href="/join" class="btn-primary">Register your interest</a>
+        <a href="/roadmap" class="btn-secondary-light">See the roadmap</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────── */
+  .pillar-hero {
+    padding: 4rem 0 3.5rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .pillar-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .pillar-big-icon {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .pillar-hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--color-black);
+  }
+  .pillar-hero-tagline {
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    max-width: 560px;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .pillar-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    background: rgba(13, 115, 119, 0.08);
+    border: 1px solid rgba(13, 115, 119, 0.2);
+    border-radius: 20px;
+    padding: 0.25rem 0.7rem;
+    margin-bottom: 0.5rem;
+    width: fit-content;
+  }
+  .pillar-breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+  .pillar-breadcrumb:hover,
+  .pillar-breadcrumb:focus-visible {
+    color: var(--color-teal);
+  }
+  .pillar-breadcrumb:focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* ── Section with sidebar layout ─────────────────────────── */
+  .section-with-sidebar {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .section-with-sidebar { grid-template-columns: 1fr 280px; }
+  }
+  .section-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .sidebar-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .sidebar-card--accent {
+    border-left: 3px solid var(--color-teal);
+    border-radius: 0 10px 10px 0;
+  }
+  .sidebar-card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    margin: 0 0 0.625rem;
+  }
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .sidebar-list li {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.5;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .sidebar-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-teal);
+    font-size: 0.8rem;
+  }
+  .sidebar-card-body {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+  a.pillar-status {
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  a.pillar-status:hover {
+    background: rgba(13, 115, 119, 0.14);
+    border-color: rgba(13, 115, 119, 0.4);
+  }
+  .launchpad-note {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin: 1.25rem 0 0;
+    padding: 0.875rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+  .launchpad-note strong {
+    color: var(--color-text);
+  }
+
+  /* ── Sections ─────────────────────────────────────────── */
+  .pillar-section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .bg-surface {
+    background: var(--color-surface);
+  }
+  .section-kicker {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+    font-family: var(--font-body);
+  }
+  h2.pillar-h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0.5rem 0 1rem;
+  }
+  .prose-block {
+    max-width: 760px;
+  }
+  .prose-block p {
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    line-height: 1.8;
+    margin: 0 0 1.25rem;
+  }
+  .prose-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Features grid ────────────────────────────────────── */
+  .features-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 640px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .feature-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .feature-icon {
+    margin-bottom: 0.875rem;
+    color: var(--color-teal);
+  }
+  .feature-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── Steps list ───────────────────────────────────────── */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding: 0;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .step-num {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-teal);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    flex-shrink: 0;
+  }
+  .step-body h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 0.375rem;
+  }
+  .step-body p {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ── CTA ──────────────────────────────────────────────── */
+  .pillar-cta {
+    padding: 5rem 0;
+    background: #0a1628;
+  }
+  .pillar-cta h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 1rem;
+  }
+  .pillar-cta p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.75;
+    max-width: 560px;
+    margin: 0 0 2rem;
+  }
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+  }
+  .btn-secondary-light {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.625rem 1.375rem;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    text-decoration: none;
+    color: #fff;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-secondary-light:hover,
+  .btn-secondary-light:focus-visible {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .btn-secondary-light:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  /* ── Accessibility ────────────────────────────────────── */
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>

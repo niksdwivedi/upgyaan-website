@@ -1,0 +1,261 @@
+---
+interface Props {
+  id?: string;
+  context?: string;
+  heading?: string;
+  subtext?: string;
+}
+const {
+  id = 'email-capture',
+  context = 'general',
+  heading,
+  subtext,
+} = Astro.props;
+const formId = `form-${id}`;
+const firstNameId = `firstname-${id}`;
+const emailId = `email-${id}`;
+---
+
+<div class="email-capture" data-context={context}>
+  {heading && <p class="capture-heading">{heading}</p>}
+  {subtext && <p class="capture-subtext">{subtext}</p>}
+
+  <form
+    id={formId}
+    class="capture-form"
+    novalidate
+    aria-label="Register your interest"
+  >
+    <input type="hidden" name="context" value={context} />
+
+    <div class="capture-fields">
+      <div class="field-group">
+        <label for={firstNameId} class="form-label">
+          First name <span aria-hidden="true">*</span>
+          <span class="sr-only">(required)</span>
+        </label>
+        <input
+          type="text"
+          id={firstNameId}
+          name="firstName"
+          class="form-input"
+          placeholder="Your first name"
+          autocomplete="given-name"
+          required
+          aria-required="true"
+          aria-describedby={`${firstNameId}-error`}
+        />
+        <span
+          id={`${firstNameId}-error`}
+          class="form-error capture-error"
+          role="alert"
+          aria-live="polite"
+          hidden
+        ></span>
+      </div>
+
+      <div class="field-group">
+        <label for={emailId} class="form-label">
+          Email address <span aria-hidden="true">*</span>
+          <span class="sr-only">(required)</span>
+        </label>
+        <input
+          type="email"
+          id={emailId}
+          name="email"
+          class="form-input"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+          aria-required="true"
+          aria-describedby={`${emailId}-error`}
+        />
+        <span
+          id={`${emailId}-error`}
+          class="form-error capture-error"
+          role="alert"
+          aria-live="polite"
+          hidden
+        ></span>
+      </div>
+
+      <button type="submit" class="btn-primary capture-submit">
+        Keep me in the loop
+      </button>
+    </div>
+  </form>
+
+  <p class="capture-privacy">
+    No spam. No noise. Just updates when things are ready.
+    <a href="/privacy">Privacy policy</a>.
+  </p>
+
+  <div
+    class="capture-success"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    hidden
+  >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="10" cy="10" r="9" stroke="#0D7377" stroke-width="1.5"/>
+      <path d="M6 10l3 3 5-5" stroke="#0D7377" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>You're in. Watch this space.</span>
+  </div>
+</div>
+
+<style>
+  .capture-heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-black);
+    margin: 0 0 0.25rem;
+  }
+
+  .capture-subtext {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+  }
+
+  .capture-fields {
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .capture-fields {
+      grid-template-columns: 1fr 1fr auto;
+      align-items: end;
+    }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .capture-submit {
+    white-space: nowrap;
+    height: fit-content;
+    align-self: flex-end;
+  }
+
+  .capture-privacy {
+    margin: 0.75rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .capture-privacy a {
+    color: var(--color-muted);
+    text-underline-offset: 2px;
+  }
+
+  .capture-privacy a:hover {
+    color: var(--color-teal);
+  }
+
+  .capture-success {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    background: #f0faf9;
+    border: 1.5px solid #0D7377;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: #0D7377;
+    font-size: 0.9375rem;
+    margin-top: 0.75rem;
+  }
+
+  .capture-success[hidden] { display: none; }
+  .capture-form[hidden] { display: none; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.capture-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const firstNameInput = form.querySelector<HTMLInputElement>('input[name="firstName"]');
+      const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
+      const submitBtn = form.querySelector<HTMLButtonElement>('.capture-submit');
+      const successEl = form.closest('.email-capture')?.querySelector<HTMLElement>('.capture-success');
+
+      // Clear errors
+      form.querySelectorAll<HTMLElement>('.capture-error').forEach(el => {
+        el.hidden = true; el.textContent = '';
+      });
+      form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+
+      let hasError = false;
+
+      const firstNameVal = firstNameInput?.value.trim() ?? '';
+      if (!firstNameVal) {
+        const err = form.querySelector<HTMLElement>(`#${firstNameInput?.id}-error`);
+        if (err && firstNameInput) {
+          err.textContent = 'Please enter your first name.';
+          err.hidden = false;
+          firstNameInput.setAttribute('aria-invalid', 'true');
+          hasError = true;
+        }
+      }
+
+      const emailVal = emailInput?.value.trim() ?? '';
+      if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        const err = form.querySelector<HTMLElement>(`#${emailInput?.id}-error`);
+        if (err && emailInput) {
+          err.textContent = 'Please enter a valid email address (e.g. you@example.com).';
+          err.hidden = false;
+          emailInput.setAttribute('aria-invalid', 'true');
+          hasError = true;
+        }
+      }
+
+      if (hasError) {
+        (form.querySelector('[aria-invalid="true"]') as HTMLElement)?.focus();
+        return;
+      }
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      try {
+        const data: Record<string, string> = {};
+        new FormData(form).forEach((val, key) => { data[key] = String(val); });
+
+        const res = await fetch('/api/interest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          form.hidden = true;
+          if (successEl) successEl.hidden = false;
+        } else { throw new Error('Server error'); }
+      } catch {
+        const anyErr = form.querySelector<HTMLElement>('.capture-error');
+        if (anyErr) { anyErr.textContent = 'Something went wrong. Please try again.'; anyErr.hidden = false; }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Keep me in the loop'; }
+      }
+    });
+  });
+</script>

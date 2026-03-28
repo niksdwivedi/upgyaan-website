@@ -1,0 +1,503 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const phases = [
+  {
+    number: '01',
+    label: 'Foundation',
+    status: 'active',
+    statusLabel: 'In progress',
+    tagline: 'Building the base — content, community, and trust',
+    description: `Every community starts with the same constraint: you cannot build credibility, trust, and culture overnight. Phase 1 is about getting the fundamentals right before we open the doors wide. The people who join during this phase are not just early adopters — they are co-founders of the culture.`,
+    what: [
+      'UpGyaan blog — practical career perspectives from practitioners',
+      'UpGyaan newsletter — weekly insights for tech professionals',
+      'Early community registrations — the founding cohort',
+      'Community norms and values established',
+      'Founder network and first advisors',
+    ],
+    outcome: 'A community with the right people, the right culture, and the right foundation for everything that follows.',
+  },
+  {
+    number: '02',
+    label: 'Community',
+    status: 'next',
+    statusLabel: 'Coming next',
+    tagline: 'Peer groups, mentorship, and the first in-person moments',
+    description: `Phase 2 is when UpGyaan becomes a real, living community. The Community Hub opens for its first cohort. Mentor Circle applications go out. City Chapters hold their first in-person events. Everything in Phase 2 is about creating genuine human connection — the kind that accelerates careers and changes trajectories.`,
+    what: [
+      'Community Hub — structured peer groups and accountability circles',
+      'Mentor Circle — matched, agenda-free mentorship programme',
+      'City Chapters — in-person events in the first 2–3 cities',
+      'Member profiles and community directory',
+      'Community governance and contribution frameworks',
+    ],
+    outcome: 'A genuine peer community where relationships are real, mentorship is structured, and careers accelerate through connection.',
+  },
+  {
+    number: '03',
+    label: 'Technology',
+    status: 'future',
+    statusLabel: 'In development',
+    tagline: 'Learning, AI guidance, and professional visibility — at scale',
+    description: `The technology layer only works if the community layer came first. Phase 3 introduces tools that are powered by community signal — making them smarter and more useful than anything built on generic data. The Academy, AI Insights, and Visibility Engine each rely on the trust and relationships established in Phases 1 and 2.`,
+    what: [
+      'Academy — career frameworks and structured learning for tech professionals',
+      'AI Insights — personalised career guidance built on community signal',
+      'Visibility Engine — strategic professional visibility grounded in community trust',
+      'Advanced matching and recommendation systems',
+      'Community-powered content review and curation',
+    ],
+    outcome: 'Technology that works because it is built on community — smarter, more personalised, and more trustworthy than generic alternatives.',
+  },
+  {
+    number: '04',
+    label: 'Expansion',
+    status: 'future',
+    statusLabel: 'On the horizon',
+    tagline: 'Where community trust converts into opportunity — at scale',
+    description: `Phase 4 is where everything compounds. The Career Launchpad activates the relationships and reputation built throughout the journey — connecting members with roles, projects, and collaborations sourced through community trust, not cold applications. UpGyaan Certified gives the community a meaningful, verifiable standard of recognition. Employer and collaborator partnerships deepen the opportunity surface for members.`,
+    what: [
+      'Career Launchpad — opportunities sourced through community relationships',
+      'UpGyaan Certified — community-backed professional recognition',
+      'Employer and collaborator partnerships',
+      'Cross-community fellowships and exchange programmes',
+      'Deeper Academy tracks and advanced mentorship programmes',
+    ],
+    outcome: 'A career infrastructure where opportunities come through trust and relationship — not cold applications and keyword matching.',
+  },
+];
+---
+
+<BaseLayout
+  title="Roadmap"
+  description="How UpGyaan is launching — the four phases, what each one includes, and the thinking behind the sequence."
+>
+
+  <section class="roadmap-hero" aria-labelledby="roadmap-heading">
+    <div class="container">
+      <p class="section-kicker">Roadmap</p>
+      <h1 id="roadmap-heading">How we're building UpGyaan</h1>
+      <p class="page-intro">
+        We are building UpGyaan in four deliberate phases — each one creating the conditions that make the next one meaningful. This is our public roadmap: what we are building, why in this order, and what to expect at each stage.
+      </p>
+    </div>
+  </section>
+
+  <section class="roadmap-body" aria-label="Roadmap phases">
+    <div class="container roadmap-inner">
+
+      <div class="principle-callout">
+        <p>
+          <strong>The principle behind the sequence:</strong> Community before technology. Trust before scale. The right people before the right features. Every phase is designed to make the next phase better — not just bigger.
+        </p>
+      </div>
+
+      <div class="phases">
+        {phases.map((phase, i) => (
+          <div class={`phase-card phase-card--${phase.status}`} id={`phase-${phase.number}`}>
+            <button
+              class={`phase-trigger ${phase.status === 'active' ? 'phase-trigger--open' : ''}`}
+              type="button"
+              aria-expanded={phase.status === 'active' ? 'true' : 'false'}
+              aria-controls={`phase-panel-${i}`}
+              id={`phase-btn-${i}`}
+            >
+              <div class="phase-number-col">
+                <span class="phase-number">{phase.number}</span>
+                <div class={`phase-status phase-status--${phase.status}`}>
+                  {phase.status === 'active' && (
+                    <span class="status-dot" aria-hidden="true"></span>
+                  )}
+                  {phase.statusLabel}
+                </div>
+              </div>
+              <div class="phase-title-col">
+                <h2 class="phase-label">{phase.label}</h2>
+                <p class="phase-tagline">{phase.tagline}</p>
+              </div>
+              <svg class="phase-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div
+              class="phase-body"
+              id={`phase-panel-${i}`}
+              role="region"
+              aria-labelledby={`phase-btn-${i}`}
+              hidden={phase.status !== 'active'}
+            >
+              <div class="phase-description">
+                <p>{phase.description}</p>
+              </div>
+
+              <div class="phase-sidebar">
+                <div class="what-block">
+                  <h3 class="block-heading">What's included</h3>
+                  <ul class="what-list">
+                    {phase.what.map(item => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="roadmap-cta">
+        <p class="cta-context">
+          This roadmap reflects where we are headed — not a fixed timeline. We build what the community needs, in the order that makes the community stronger.
+        </p>
+        <div class="cta-actions">
+          <a href="/join" class="btn-primary">Register your interest</a>
+          <a href={`mailto:${siteConfig.contact.email}`} class="btn-secondary">Share feedback on the roadmap</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .roadmap-hero {
+    padding: 4rem 0 3rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .roadmap-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .page-intro {
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  .section-kicker {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+  }
+
+  .roadmap-body {
+    padding: 4rem 0 6rem;
+  }
+
+  .roadmap-inner {
+    max-width: 900px;
+  }
+
+  /* Principle callout */
+  .principle-callout {
+    background: #f0faf9;
+    border-left: 3px solid var(--color-teal);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .principle-callout p {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Phase cards */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .phase-card {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+
+  .phase-card--active {
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.08);
+  }
+
+  .phase-card--next {
+    border-color: var(--color-border);
+  }
+
+  .phase-card--future {
+    opacity: 0.85;
+  }
+
+  /* Collapsible trigger */
+  .phase-trigger {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.15s ease;
+  }
+
+  .phase-trigger:hover {
+    background: #e8f5f5;
+  }
+
+  .phase-trigger--open {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .phase-chevron {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    color: var(--color-muted);
+    transition: transform 0.2s ease;
+  }
+
+  .phase-trigger--open .phase-chevron {
+    transform: rotate(180deg);
+    color: var(--color-teal);
+  }
+
+  .phase-number-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    min-width: 52px;
+  }
+
+  .phase-number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    line-height: 1;
+    opacity: 0.4;
+  }
+
+  .phase-card--active .phase-number {
+    opacity: 1;
+  }
+
+  .phase-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .phase-status--active {
+    color: var(--color-teal);
+  }
+
+  .phase-status--next {
+    color: var(--color-amber-text, #b45309);
+  }
+
+  .phase-status--future {
+    color: var(--color-muted);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-teal);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .phase-title-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .phase-label {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 0.35rem;
+  }
+
+  .phase-tagline {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .phase-body[hidden] { display: none; }
+
+  .phase-body {
+    padding: 1.75rem;
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .phase-body {
+      grid-template-columns: 1fr 280px;
+    }
+  }
+
+  .phase-description p {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .phase-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .block-heading {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    margin: 0 0 0.625rem;
+  }
+
+  .what-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.125rem;
+  }
+
+  .what-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .what-list li {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.5;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .what-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-teal);
+    font-size: 0.8125rem;
+  }
+
+  .outcome-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-teal);
+    border-radius: 0 8px 8px 0;
+    padding: 1.125rem;
+  }
+
+  .outcome-text {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.65;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* CTA */
+  .roadmap-cta {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-context {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    max-width: 560px;
+    font-style: italic;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.25rem;
+    background: transparent;
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-dot { animation: none; }
+    .btn-secondary, .phase-trigger, .phase-chevron { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.phase-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      const panelId = btn.getAttribute('aria-controls')!;
+      const panel = document.getElementById(panelId);
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.classList.toggle('phase-trigger--open', !isOpen);
+      if (panel) panel.hidden = isOpen;
+    });
+  });
+</script>
