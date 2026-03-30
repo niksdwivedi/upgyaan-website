@@ -185,12 +185,6 @@ const orgSchema = {
 </style>
 
 <script>
-  // ── Vercel Analytics ───────────────────────────────────
-  import { inject } from '@vercel/analytics';
-  inject();
-</script>
-
-<script>
   // ── Cookie notice ──────────────────────────────────────
   const notice = document.getElementById('cookie-notice');
   const btn = document.getElementById('cookie-dismiss');

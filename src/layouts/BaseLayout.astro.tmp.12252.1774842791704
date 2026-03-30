@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { siteConfig } from '../config/site';
 import { ViewTransitions } from 'astro:transitions';
+import { inject } from '@vercel/analytics';
 
 interface Props {
   title: string;
@@ -183,12 +184,6 @@ const orgSchema = {
     .cookie-dismiss { transition: none; }
   }
 </style>
-
-<script>
-  // ── Vercel Analytics ───────────────────────────────────
-  import { inject } from '@vercel/analytics';
-  inject();
-</script>
 
 <script>
   // ── Cookie notice ──────────────────────────────────────
