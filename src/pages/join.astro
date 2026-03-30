@@ -159,6 +159,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   </svg>
                 </button>
               </div>
+              <span id="join-country-error" class="form-error" role="alert" aria-live="polite" hidden></span>
             </div>
 
             <!-- City with detect -->
@@ -576,17 +577,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </style>
 
 <script>
-  const form = document.getElementById('join-form') as HTMLFormElement;
-  const successEl = document.getElementById('join-success') as HTMLElement;
-  const submitBtn = document.getElementById('join-submit') as HTMLButtonElement;
-  const formError = document.getElementById('join-form-error') as HTMLElement;
-  const countryInput = document.getElementById('join-country') as HTMLInputElement;
-  const cityInput = document.getElementById('join-city') as HTMLInputElement;
-  const detectCountryBtn = document.getElementById('detect-country') as HTMLButtonElement;
-  const detectCityBtn = document.getElementById('detect-city') as HTMLButtonElement;
-  const suggestionsList = document.getElementById('country-suggestions') as HTMLElement;
-
-  // ── Country list for typeahead ─────────────────────────────────
+  // ── Country list ───────────────────────────────────────────────
   const COUNTRIES = [
     'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
     'Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan',
@@ -611,137 +602,269 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     'Yemen','Zambia','Zimbabwe',
   ];
 
-  // ── Country typeahead ──────────────────────────────────────────
-  let selectedIndex = -1;
+  // Aliases that ipapi or users might type, mapped to the canonical list name
+  const COUNTRY_ALIASES: Record<string, string> = {
+    'usa': 'United States',
+    'us': 'United States',
+    'uk': 'United Kingdom',
+    'uae': 'United Arab Emirates',
+    'czechia': 'Czech Republic',
+    'korea': 'South Korea',
+    'republic of korea': 'South Korea',
+    'democratic republic of the congo': 'Congo',
+    'republic of the congo': 'Congo',
+    'russia': 'Russia',
+    'russian federation': 'Russia',
+    'iran (islamic republic of)': 'Iran',
+    'syrian arab republic': 'Syria',
+    'viet nam': 'Vietnam',
+    'lao pdr': 'Laos',
+    "côte d'ivoire": 'Ivory Coast',
+    'ivory coast': 'Ivory Coast',
+    'myanmar (burma)': 'Myanmar',
+    'eswatini (swaziland)': 'Eswatini',
+    'north macedonia (fyr)': 'North Macedonia',
+  };
 
-  function showSuggestions(matches: string[]) {
-    if (!matches.length) { hideSuggestions(); return; }
-    suggestionsList.innerHTML = '';
-    matches.forEach((country, i) => {
-      const li = document.createElement('li');
-      li.textContent = country;
-      li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', 'false');
-      li.addEventListener('mousedown', (e) => {
-        e.preventDefault(); // prevent blur before click
-        countryInput.value = country;
-        hideSuggestions();
+  function matchCountry(raw: string): string {
+    if (!raw) return '';
+    const trimmed = raw.trim();
+    // Exact match
+    const exact = COUNTRIES.find(c => c === trimmed);
+    if (exact) return exact;
+    // Case-insensitive exact match
+    const lower = trimmed.toLowerCase();
+    const ci = COUNTRIES.find(c => c.toLowerCase() === lower);
+    if (ci) return ci;
+    // Alias lookup
+    return COUNTRY_ALIASES[lower] ?? '';
+  }
+
+  function initJoinForm() {
+    const form = document.getElementById('join-form') as HTMLFormElement;
+    if (!form) return;
+
+    const successEl = document.getElementById('join-success') as HTMLElement;
+    const submitBtn = document.getElementById('join-submit') as HTMLButtonElement;
+    const formError = document.getElementById('join-form-error') as HTMLElement;
+    const countryInput = document.getElementById('join-country') as HTMLInputElement;
+    const cityInput = document.getElementById('join-city') as HTMLInputElement;
+    const detectCountryBtn = document.getElementById('detect-country') as HTMLButtonElement;
+    const detectCityBtn = document.getElementById('detect-city') as HTMLButtonElement;
+    const suggestionsList = document.getElementById('country-suggestions') as HTMLElement;
+    const countryError = document.getElementById('join-country-error') as HTMLElement;
+
+    let selectedIndex = -1;
+
+    function showSuggestions(matches: string[]) {
+      if (!matches.length) { hideSuggestions(); return; }
+      suggestionsList.innerHTML = '';
+      matches.forEach((country) => {
+        const li = document.createElement('li');
+        li.textContent = country;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          countryInput.value = country;
+          clearCountryError();
+          hideSuggestions();
+        });
+        suggestionsList.appendChild(li);
       });
-      suggestionsList.appendChild(li);
-    });
-    suggestionsList.hidden = false;
-    countryInput.setAttribute('aria-expanded', 'true');
-    selectedIndex = -1;
-  }
-
-  function hideSuggestions() {
-    suggestionsList.hidden = true;
-    countryInput.setAttribute('aria-expanded', 'false');
-    selectedIndex = -1;
-  }
-
-  countryInput.addEventListener('input', () => {
-    const q = countryInput.value.trim();
-    if (q.length < 2) { hideSuggestions(); return; }
-    const lower = q.toLowerCase();
-    const matches = COUNTRIES.filter(c => c.toLowerCase().startsWith(lower)).slice(0, 8);
-    // Also include contains matches (lower priority) if < 5 startsWith results
-    if (matches.length < 5) {
-      COUNTRIES.filter(c => !c.toLowerCase().startsWith(lower) && c.toLowerCase().includes(lower))
-        .slice(0, 5 - matches.length)
-        .forEach(c => matches.push(c));
+      suggestionsList.hidden = false;
+      countryInput.setAttribute('aria-expanded', 'true');
+      selectedIndex = -1;
     }
-    showSuggestions(matches);
-  });
 
-  countryInput.addEventListener('keydown', (e) => {
-    const items = suggestionsList.querySelectorAll('li');
-    if (!items.length || suggestionsList.hidden) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      selectedIndex = Math.max(selectedIndex - 1, -1);
-    } else if (e.key === 'Enter' && selectedIndex >= 0) {
-      e.preventDefault();
-      countryInput.value = (items[selectedIndex] as HTMLElement).textContent ?? '';
-      hideSuggestions();
-      return;
-    } else if (e.key === 'Escape') {
-      hideSuggestions(); return;
-    } else { return; }
-    items.forEach((li, i) => li.setAttribute('aria-selected', String(i === selectedIndex)));
-  });
+    function hideSuggestions() {
+      suggestionsList.hidden = true;
+      countryInput.setAttribute('aria-expanded', 'false');
+      selectedIndex = -1;
+    }
 
-  countryInput.addEventListener('blur', () => setTimeout(hideSuggestions, 150));
+    function clearCountryError() {
+      if (countryError) { countryError.hidden = true; countryError.textContent = ''; }
+      countryInput.removeAttribute('aria-invalid');
+    }
 
-  // ── Detect buttons ─────────────────────────────────────────────
-  async function detectField(btn: HTMLButtonElement, field: HTMLInputElement, endpoint: string) {
-    btn.disabled = true;
-    btn.classList.add('detecting');
-    try {
-      const res = await fetch(endpoint, { signal: AbortSignal.timeout(5000) });
-      if (res.ok) {
-        const val = (await res.text()).trim();
-        if (val && val.length < 80 && !val.toLowerCase().includes('undefined')) {
-          field.value = val;
-          if (field === countryInput) hideSuggestions();
-        }
+    function validateCountryField(): boolean {
+      const val = countryInput.value.trim();
+      if (!val) return true; // optional field — empty is fine
+      if (matchCountry(val)) {
+        // Normalise to canonical name in case user typed an alias
+        countryInput.value = matchCountry(val);
+        clearCountryError();
+        return true;
       }
-    } catch { /* fail silently */ } finally {
-      btn.disabled = false;
-      btn.classList.remove('detecting');
+      countryInput.setAttribute('aria-invalid', 'true');
+      if (countryError) {
+        countryError.textContent = 'Please select a country from the list, or type the full country name.';
+        countryError.hidden = false;
+      }
+      return false;
     }
-  }
 
-  detectCountryBtn?.addEventListener('click', () =>
-    detectField(detectCountryBtn, countryInput, 'https://ipapi.co/country_name/')
-  );
+    countryInput.addEventListener('input', () => {
+      clearCountryError();
+      const q = countryInput.value.trim();
+      if (q.length < 1) { hideSuggestions(); return; }
+      const lower = q.toLowerCase();
+      const startsWith = COUNTRIES.filter(c => c.toLowerCase().startsWith(lower));
+      const contains = COUNTRIES.filter(c => !c.toLowerCase().startsWith(lower) && c.toLowerCase().includes(lower));
+      const matches = [...startsWith, ...contains].slice(0, 8);
+      showSuggestions(matches);
+    });
 
-  detectCityBtn?.addEventListener('click', () =>
-    detectField(detectCityBtn, cityInput, 'https://ipapi.co/city/')
-  );
+    countryInput.addEventListener('keydown', (e) => {
+      const items = suggestionsList.querySelectorAll('li');
+      if (!items.length || suggestionsList.hidden) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        countryInput.value = (items[selectedIndex] as HTMLElement).textContent ?? '';
+        clearCountryError();
+        hideSuggestions();
+        return;
+      } else if (e.key === 'Escape') {
+        hideSuggestions(); return;
+      } else { return; }
+      items.forEach((li, i) => li.setAttribute('aria-selected', String(i === selectedIndex)));
+    });
 
-  // ── Form validation & submission ──────────────────────────────
-  function showFieldError(fieldId: string, errorId: string, message: string) {
-    const field = document.getElementById(fieldId) as HTMLInputElement;
-    const errorEl = document.getElementById(errorId) as HTMLElement;
-    if (field && errorEl) {
-      field.setAttribute('aria-invalid', 'true');
-      errorEl.textContent = message;
-      errorEl.hidden = false;
+    countryInput.addEventListener('blur', () => {
+      setTimeout(() => {
+        hideSuggestions();
+        validateCountryField();
+      }, 150);
+    });
+
+    // ── Email blur validation ────────────────────────────────────
+    const emailInput = document.getElementById('join-email') as HTMLInputElement;
+    const emailError = document.getElementById('join-email-error') as HTMLElement;
+
+    emailInput?.addEventListener('blur', () => {
+      const val = emailInput.value.trim();
+      if (!val) return; // don't nag on empty — only validate on submit
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailError.textContent = 'Please enter a valid email address (e.g. you@example.com).';
+        emailError.hidden = false;
+      } else {
+        emailInput.removeAttribute('aria-invalid');
+        emailError.hidden = true;
+        emailError.textContent = '';
+      }
+    });
+
+    emailInput?.addEventListener('input', () => {
+      if (emailInput.getAttribute('aria-invalid')) {
+        emailInput.removeAttribute('aria-invalid');
+        emailError.hidden = true;
+        emailError.textContent = '';
+      }
+    });
+
+    // ── Auto-populate country & city from IP on page load ────────
+    (async () => {
+      if (countryInput.value || cityInput.value) return; // don't overwrite if user already typed
+      try {
+        const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!countryInput.value && data.country_name) {
+          const matched = matchCountry(data.country_name);
+          if (matched) countryInput.value = matched;
+        }
+        if (!cityInput.value && data.city) {
+          cityInput.value = data.city;
+        }
+      } catch { /* fail silently — optional enhancement */ }
+    })();
+
+    // ── Detect buttons ───────────────────────────────────────────
+    detectCountryBtn?.addEventListener('click', async () => {
+      detectCountryBtn.disabled = true;
+      detectCountryBtn.classList.add('detecting');
+      try {
+        const res = await fetch('https://ipapi.co/country_name/', { signal: AbortSignal.timeout(5000) });
+        if (res.ok) {
+          const raw = (await res.text()).trim();
+          const matched = matchCountry(raw);
+          if (matched) {
+            countryInput.value = matched;
+            clearCountryError();
+          } else if (raw && raw.length < 80) {
+            // ipapi returned something but it's not in our list — still show it, let blur validate
+            countryInput.value = raw;
+          }
+          hideSuggestions();
+        }
+      } catch { /* fail silently */ } finally {
+        detectCountryBtn.disabled = false;
+        detectCountryBtn.classList.remove('detecting');
+      }
+    });
+
+    detectCityBtn?.addEventListener('click', async () => {
+      detectCityBtn.disabled = true;
+      detectCityBtn.classList.add('detecting');
+      try {
+        const res = await fetch('https://ipapi.co/city/', { signal: AbortSignal.timeout(5000) });
+        if (res.ok) {
+          const val = (await res.text()).trim();
+          if (val && val.length < 80 && !val.toLowerCase().includes('undefined')) {
+            cityInput.value = val;
+          }
+        }
+      } catch { /* fail silently */ } finally {
+        detectCityBtn.disabled = false;
+        detectCityBtn.classList.remove('detecting');
+      }
+    });
+
+    // ── Form validation & submission ─────────────────────────────
+    function showFieldError(fieldId: string, errorId: string, message: string) {
+      const field = document.getElementById(fieldId) as HTMLInputElement;
+      const errorEl = document.getElementById(errorId) as HTMLElement;
+      if (field && errorEl) {
+        field.setAttribute('aria-invalid', 'true');
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      }
     }
-  }
 
-  function clearErrors() {
-    document.querySelectorAll('.form-error').forEach(el => {
-      (el as HTMLElement).hidden = true;
-      (el as HTMLElement).textContent = '';
-    });
-    document.querySelectorAll('[aria-invalid]').forEach(el => {
-      el.removeAttribute('aria-invalid');
-    });
-    formError.hidden = true;
-  }
+    function clearErrors() {
+      document.querySelectorAll('.form-error').forEach(el => {
+        (el as HTMLElement).hidden = true;
+        (el as HTMLElement).textContent = '';
+      });
+      document.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+      formError.hidden = true;
+    }
 
-  if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearErrors();
 
       const nameVal = (form.querySelector('#join-name') as HTMLInputElement)?.value.trim();
       const emailVal = (form.querySelector('#join-email') as HTMLInputElement)?.value.trim();
-
       let hasError = false;
 
       if (!nameVal) {
         showFieldError('join-name', 'join-name-error', 'Please enter your full name.');
         hasError = true;
       }
-
       if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
         showFieldError('join-email', 'join-email-error', 'Please enter a valid email address (e.g. you@example.com).');
+        hasError = true;
+      }
+      if (!validateCountryField()) {
         hasError = true;
       }
 
@@ -779,4 +902,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     });
   }
+
+  document.addEventListener('astro:page-load', initJoinForm);
 </script>
