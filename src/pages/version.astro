@@ -1,0 +1,66 @@
+---
+// Internal build info page — not linked from any navigation.
+// Access at /version to check what is deployed.
+
+const buildTime = new Date().toISOString();
+const isVercel   = !!import.meta.env.VERCEL;
+const environment = import.meta.env.VERCEL_ENV ?? 'local';
+const commitSha  = import.meta.env.VERCEL_GIT_COMMIT_SHA ?? null;
+const commitMsg  = import.meta.env.VERCEL_GIT_COMMIT_MESSAGE ?? null;
+const branch     = import.meta.env.VERCEL_GIT_COMMIT_REF ?? null;
+
+const rows: { label: string; value: string | null }[] = [
+  { label: 'Environment',    value: isVercel ? environment : 'local dev' },
+  ...(isVercel ? [{ label: 'Build time', value: buildTime }] : []),
+  { label: 'Branch',         value: branch },
+  { label: 'Commit',         value: commitSha ? commitSha.slice(0, 7) : null },
+  { label: 'Commit message', value: commitMsg },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build info — UpGyaan</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body {
+        font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+        background: #0f1117;
+        color: #e2e8f0;
+        margin: 0;
+        padding: 2.5rem 1.5rem;
+        min-height: 100vh;
+      }
+      h1 { font-size: 0.875rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 2rem; }
+      table { border-collapse: collapse; width: 100%; max-width: 560px; }
+      td { padding: 0.5rem 0; vertical-align: top; }
+      td:first-child { color: #64748b; width: 160px; font-size: 0.8125rem; }
+      td:last-child { color: #e2e8f0; font-size: 0.875rem; word-break: break-all; }
+      .nil { color: #334155; font-style: italic; }
+      .env-local      { color: #60a5fa; }
+      .env-production { color: #34d399; }
+      .env-preview    { color: #fbbf24; }
+    </style>
+  </head>
+  <body>
+    <h1>UpGyaan — build info</h1>
+    <table>
+      {rows.map(row => (
+        <tr>
+          <td>{row.label}</td>
+          <td>
+            {row.value
+              ? row.label === 'Environment'
+                ? <span class={`env-${row.value}`}>{row.value}</span>
+                : row.value
+              : <span class="nil">—</span>
+            }
+          </td>
+        </tr>
+      ))}
+    </table>
+  </body>
+</html>

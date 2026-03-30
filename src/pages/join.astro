@@ -667,6 +667,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         li.addEventListener('mousedown', (e) => {
           e.preventDefault();
           countryInput.value = country;
+          cityInput.value = '';
           clearCountryError();
           hideSuggestions();
         });
@@ -707,6 +708,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     countryInput.addEventListener('input', () => {
       clearCountryError();
+      cityInput.value = '';
       const q = countryInput.value.trim();
       if (q.length < 1) { hideSuggestions(); return; }
       const lower = q.toLowerCase();
@@ -770,21 +772,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     });
 
+    // Converts a 2-letter ISO country code to a full name using the browser's built-in API
+    function isoToCountryName(code: string): string {
+      try {
+        return new Intl.DisplayNames(['en'], { type: 'region' }).of(code.toUpperCase()) ?? '';
+      } catch { return ''; }
+    }
+
+    // Shared geo lookup — one request, used by both auto-populate and detect buttons
+    async function fetchGeoData(): Promise<{ country: string; city: string } | null> {
+      const res = await fetch('https://ipinfo.io/json', { signal: AbortSignal.timeout(5000) });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return {
+        country: data.country ? isoToCountryName(data.country) : '',
+        city: data.city ?? '',
+      };
+    }
+
     // ── Auto-populate country & city from IP on page load ────────
     (async () => {
       if (countryInput.value || cityInput.value) return; // don't overwrite if user already typed
       try {
-        const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!countryInput.value && data.country_name) {
-          const matched = matchCountry(data.country_name);
+        const geo = await fetchGeoData();
+        if (!geo) return;
+        if (!countryInput.value && geo.country) {
+          const matched = matchCountry(geo.country);
           if (matched) countryInput.value = matched;
         }
-        if (!cityInput.value && data.city) {
-          cityInput.value = data.city;
+        if (!cityInput.value && geo.city) {
+          cityInput.value = geo.city;
         }
-      } catch { /* fail silently — optional enhancement */ }
+      } catch { /* fail silently */ }
     })();
 
     // ── Detect buttons ───────────────────────────────────────────
@@ -792,17 +811,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       detectCountryBtn.disabled = true;
       detectCountryBtn.classList.add('detecting');
       try {
-        const res = await fetch('https://ipapi.co/country_name/', { signal: AbortSignal.timeout(5000) });
-        if (res.ok) {
-          const raw = (await res.text()).trim();
-          const matched = matchCountry(raw);
-          if (matched) {
-            countryInput.value = matched;
-            clearCountryError();
-          } else if (raw && raw.length < 80) {
-            // ipapi returned something but it's not in our list — still show it, let blur validate
-            countryInput.value = raw;
-          }
+        const geo = await fetchGeoData();
+        if (geo?.country) {
+          const matched = matchCountry(geo.country);
+          countryInput.value = matched || geo.country;
+          clearCountryError();
           hideSuggestions();
         }
       } catch { /* fail silently */ } finally {
@@ -815,13 +828,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       detectCityBtn.disabled = true;
       detectCityBtn.classList.add('detecting');
       try {
-        const res = await fetch('https://ipapi.co/city/', { signal: AbortSignal.timeout(5000) });
-        if (res.ok) {
-          const val = (await res.text()).trim();
-          if (val && val.length < 80 && !val.toLowerCase().includes('undefined')) {
-            cityInput.value = val;
-          }
-        }
+        const geo = await fetchGeoData();
+        if (geo?.city) cityInput.value = geo.city;
       } catch { /* fail silently */ } finally {
         detectCityBtn.disabled = false;
         detectCityBtn.classList.remove('detecting');
@@ -880,6 +888,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       try {
         const data: Record<string, string> = {};
         new FormData(form).forEach((val, key) => { data[key] = String(val); });
+
+        // Capture UTM parameters from the URL so we know the traffic source
+        const params = new URLSearchParams(window.location.search);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(k => {
+          const v = params.get(k);
+          if (v) data[k] = v;
+        });
 
         const res = await fetch('/api/interest', {
           method: 'POST',

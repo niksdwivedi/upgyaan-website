@@ -62,22 +62,23 @@ export function getAvatarUrl(params: AvatarParams): string {
     return avatar.trim();
   }
 
-  // 2. Twitter/X handle via unavatar.io
+  const dicebear = dicebearInitials(name);
+  const linkedinUrl = linkedin?.trim()
+    ? `https://unavatar.io/linkedin/${extractLinkedInUsername(linkedin)}`
+    : null;
+
+  // 2. Twitter/X → falls back to LinkedIn if available, then DiceBear
   if (twitter && twitter.trim()) {
     const handle = extractTwitterHandle(twitter);
     if (handle) {
-      return `https://unavatar.io/twitter/${handle}`;
+      const fallback = linkedinUrl ?? dicebear;
+      return `https://unavatar.io/twitter/${handle}?fallback=${encodeURIComponent(fallback)}`;
     }
   }
 
-  // 3. LinkedIn username via unavatar.io
-  if (linkedin && linkedin.trim()) {
-    const username = extractLinkedInUsername(linkedin);
-    if (username) {
-      return `https://unavatar.io/linkedin/${username}`;
-    }
-  }
+  // 3. LinkedIn only (no Twitter set)
+  if (linkedinUrl) return linkedinUrl;
 
   // 4. DiceBear initials — always works as a last resort
-  return dicebearInitials(name);
+  return dicebear;
 }
